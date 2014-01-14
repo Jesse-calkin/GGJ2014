@@ -1,4 +1,5 @@
 import pygame
+from random import choice
 
 """Base Game
 
@@ -10,6 +11,16 @@ SCREEN_WIDTH = 1440
 SCREEN_HEIGHT = 600
 FRAME_RATE = 30
 DELTA_TIME = pygame.time.Clock().tick(60)
+
+#Colors!
+RED = (255,000,000)
+ORANGE = (255,165,000)
+YELLOW = (255,255,000)
+GREEN = (000,255,000)
+BLUE = (000,000,255)
+INDIGO = (75,000,130)
+VIOLET = (143,000,255)
+TASTE_THE_RAINBOW = [RED,ORANGE,YELLOW,GREEN,BLUE,INDIGO,VIOLET]
 
 #Input
 LEFT_KEY = pygame.K_LEFT
@@ -33,7 +44,8 @@ class Game(object):
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
                     running = False
-            screen.fill((105,180,200))
+            bgcolor = choice(TASTE_THE_RAINBOW)
+            screen.fill(bgcolor)
             pygame.display.flip()
 
 if __name__ == '__main__':
