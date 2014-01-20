@@ -7,7 +7,8 @@ GGJ2014
 Setting up pygame on a brewed python install:
 
 `
-brew install sdl sdl_image sdl_mixer sdl_ttf smpeg portmidi 
+brew install sdl sdl_image sdl_mixer sdl_ttf smpeg portmidi
+
 sudo pip install hg+http://bitbucket.org/pygame/pygame
 `
 
@@ -44,6 +45,10 @@ sudo pip install hg+http://bitbucket.org/pygame/pygame
 [Tiled Map Editor](http://www.mapeditor.org/)
 
 [Audacity - Audio editor/recorder](http://audacity.sourceforge.net/)
+
+[Gif to Sprite Sheet](http://commins.ca/gif-to-png-tilesheet/)
+
+[Pixen - Pixel art editor](http://pixenapp.com/)
 
 ## Misc
 
