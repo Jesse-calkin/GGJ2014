@@ -3,22 +3,19 @@ from spritesheet_functions import *
 import pygame.math
 
 """
-Player class
+Powerup class
 """
 
 
-class Player(pygame.sprite.Sprite):
+class Powerup(pygame.sprite.Sprite):
     """ 
     Initialize and set default vectors
     """
-    position = pygame.math.Vector2(100,300)
-    impulse = pygame.math.Vector2(0,0)
+    position = pygame.math.Vector2(900,400)
+    impulse = pygame.math.Vector2(-7,0)
 
-    class state:
-        _none, running, jumping, evolving, hurt, dying, dead, powerup = range(8)
-
-    class organism:
-        _none, protozoa, fish, mudskipper, shark, whale, mouse, lizard, dinosaur, mastodon, monkey, person, spaceMonster, quark = range(14)
+    class branch_type:
+        _none, up, down = range(3)
 
     timer = 0
     # holding our animation frames for now
@@ -31,9 +28,7 @@ class Player(pygame.sprite.Sprite):
 
 
         sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
-        frame = sprite_sheet.getImage(105, 108, 62, 92)
-        self.frames.append(frame)
-        frame = sprite_sheet.getImage(171, 108, 84, 92)
+        frame = sprite_sheet.getImage(88, 218, 82, 83)
         self.frames.append(frame)
 
         # Fetch the rectangle object that has the dimensions of the image
@@ -70,11 +65,15 @@ class Player(pygame.sprite.Sprite):
     def set_organism(self,organism):
         self.organism = organism
 
+    def set_branch_type(self,branch_type):
+        self.branch_type = branch_type
+
     def animate(self):
-        if self.image == self.frames[0]:
-            self.image = self.frames[1]
-        else:
-            self.image = self.frames[0]
+        pass
+        # if self.image == self.frames[0]:
+        #     self.image = self.frames[1]
+        # else:
+        #     self.image = self.frames[0]
 
     def update(self,dt):
         self.rect.x += self.impulse.x

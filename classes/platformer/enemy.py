@@ -3,19 +3,19 @@ from spritesheet_functions import *
 import pygame.math
 
 """
-Player class
+Enemy class
 """
 
 
-class Player(pygame.sprite.Sprite):
+class Enemy(pygame.sprite.Sprite):
     """ 
     Initialize and set default vectors
     """
-    position = pygame.math.Vector2(100,300)
-    impulse = pygame.math.Vector2(0,0)
+    position = pygame.math.Vector2(900,200)
+    impulse = pygame.math.Vector2(-5,0)
 
     class state:
-        _none, running, jumping, evolving, hurt, dying, dead, powerup = range(8)
+        active, dying, dead = range(3)
 
     class organism:
         _none, protozoa, fish, mudskipper, shark, whale, mouse, lizard, dinosaur, mastodon, monkey, person, spaceMonster, quark = range(14)
@@ -31,9 +31,9 @@ class Player(pygame.sprite.Sprite):
 
 
         sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
-        frame = sprite_sheet.getImage(105, 108, 62, 92)
+        frame = sprite_sheet.getImage(418, 108, 98, 99)
         self.frames.append(frame)
-        frame = sprite_sheet.getImage(171, 108, 84, 92)
+        frame = sprite_sheet.getImage(5, 109, 99, 99)
         self.frames.append(frame)
 
         # Fetch the rectangle object that has the dimensions of the image

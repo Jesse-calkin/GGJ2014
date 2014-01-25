@@ -2,6 +2,8 @@ import pygame
 from random import choice
 from constants import *
 from player import *
+from enemy import *
+from powerup import *
 from blocks import BlockManager
 
 """Base Game
@@ -29,9 +31,18 @@ class Game(object):
 
         """ sprite stuff """
         player = Player()
-        sprite_group = pygame.sprite.Group()
-        sprite_group.add(player)
+        player_group = pygame.sprite.Group()
+        player_group.add(player)
         bgcolor = WHITE
+
+        enemy = Enemy()
+        enemy_group = pygame.sprite.Group()
+        enemy_group.add(enemy)
+
+        powerup = Powerup()
+        powerup_group = pygame.sprite.Group()
+        powerup_group.add(powerup)
+
 
         block_mgr = BlockManager()
 
@@ -57,12 +68,17 @@ class Game(object):
                 if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
                     player.move_left()
 
+            # Update operations
             player.update(delta_time)
+            enemy_group.update(delta_time)
+            powerup_group.update(delta_time)
+
+            # Drawing operations
             screen.fill(bgcolor)
-            sprite_group.draw(screen)
-
+            player_group.draw(screen)
             block_mgr.on_draw(screen)
-
+            enemy_group.draw(screen)
+            powerup_group.draw(screen)
             pygame.display.flip()
 
 
