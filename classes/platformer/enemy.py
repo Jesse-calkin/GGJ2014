@@ -8,11 +8,11 @@ Enemy class
 
 
 class Enemy(pygame.sprite.Sprite):
-    """ 
+    """
     Initialize and set default vectors
     """
     position = pygame.math.Vector2(900,200)
-    impulse = pygame.math.Vector2(-5,0)
+    impulse = pygame.math.Vector2(-60,0)
 
     class state:
         active, dying, dead = range(3)
@@ -70,6 +70,7 @@ class Enemy(pygame.sprite.Sprite):
     def set_organism(self,organism):
         self.organism = organism
 
+
     def animate(self):
         if self.image == self.frames[0]:
             self.image = self.frames[1]
@@ -77,10 +78,10 @@ class Enemy(pygame.sprite.Sprite):
             self.image = self.frames[0]
 
     def update(self,dt):
-        self.rect.x *= self.impulse.x * dt
-        self.rect.y *= self.impulse.y * dt
+        self.rect.x += self.impulse.x * dt
+        self.rect.y += self.impulse.y * dt
         self.timer += dt
-        
+
         if self.timer > .5:
             self.animate()
             self.timer = 0

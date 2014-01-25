@@ -90,6 +90,8 @@ class Game(object):
             powerup_group.draw(screen)
             pygame.display.flip()
 
+            pygame.display.set_caption(str(clock.get_fps()))
+
 if __name__ == '__main__':
     pygame.init()
     print pygame.ver

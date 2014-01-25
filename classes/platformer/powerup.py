@@ -8,11 +8,11 @@ Powerup class
 
 
 class Powerup(pygame.sprite.Sprite):
-    """ 
+    """
     Initialize and set default vectors
     """
     position = pygame.math.Vector2(900,400)
-    impulse = pygame.math.Vector2(-7,0)
+    impulse = pygame.math.Vector2(-60,0)
 
     class branch_type:
         _none, up, down = range(3)
