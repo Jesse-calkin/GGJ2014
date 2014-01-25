@@ -23,6 +23,7 @@ UP_KEY = pygame.K_UP
 DOWN_KEY = pygame.K_DOWN
 QUIT = pygame.QUIT
 ESC_KEY = pygame.K_ESCAPE
+SPACE_KEY = pygame.K_SPACE
 
 
 class Game(object):
@@ -32,6 +33,7 @@ class Game(object):
         """ game stuff """
         clock = pygame.time.Clock()
         running = True
+        paused = False
 
         """ sprite stuff """
         player = Player()
@@ -68,24 +70,30 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
+
                 if event.type == pygame.KEYDOWN:
                     if event.key == ESC_KEY:
                         running = False
-                    if event.key == UP_KEY:
-                        player.move_up()
-                    if event.key == DOWN_KEY:
-                        player.move_down()
-                    if event.key == RIGHT_KEY:
-                        player.move_right()
-                    if event.key == LEFT_KEY:
-                        player.move_left()
-            # Update operaions
-            bg.scroll(speed)
+                    if event.key == SPACE_KEY:
+                        paused = not paused
+                    if not paused:
+                        if event.key == UP_KEY:
+                            player.move_up()
+                        if event.key == DOWN_KEY:
+                            player.move_down()
+                        if event.key == RIGHT_KEY:
+                            player.move_right()
+                        if event.key == LEFT_KEY:
+                            player.move_left()
 
-            player.update(delta_time)
-            enemy_group.update(delta_time)
-            powerup_group.update(delta_time)
-            block_mgr.update(-80.0, delta_time)
+            #If we aren't paused, do this stuff
+            if not paused:
+                # Update operaions
+                bg.scroll(speed)
+                player.update(delta_time)
+                enemy_group.update(delta_time)
+                powerup_group.update(delta_time)
+                block_mgr.update(-80.0, delta_time)
 
             # Drawing operations
             #screen.fill(bgcolor)
