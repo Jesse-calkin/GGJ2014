@@ -6,9 +6,7 @@ import pygame
 # 'sounds' - a list of tuples of the format (sound ID, sound filename)
 # Result - 'loaded_sounds' is populated with sound data for the given 'sounds'
 def load_sounds(sounds):
-	global loaded_sounds
-
-	loaded_sounds = {}
+	loaded_sounds.clear()
 
 	for sound_tuple_to_load in sounds:
 		sound_id = sound_tuple_to_load[sound_tuple_index_sound_id]
