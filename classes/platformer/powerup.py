@@ -1,7 +1,6 @@
 import pygame
 from spritesheet_functions import *
-import pygame.math
-
+from vector import V2
 """
 Powerup class
 """
@@ -11,8 +10,8 @@ class Powerup(pygame.sprite.Sprite):
     """
     Initialize and set default vectors
     """
-    position = pygame.math.Vector2(900,400)
-    impulse = pygame.math.Vector2(-60,0)
+    position = V2(900,400)
+    impulse = V2(-60,0)
 
     class branch_type:
         _none, up, down = range(3)

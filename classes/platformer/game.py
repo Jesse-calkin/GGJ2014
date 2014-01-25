@@ -7,6 +7,7 @@ from enemy import *
 from powerup import *
 from blocks import BlockManager
 from parallax import *
+from sound import *
 
 
 
@@ -23,7 +24,8 @@ UP_KEY = pygame.K_UP
 DOWN_KEY = pygame.K_DOWN
 QUIT = pygame.QUIT
 ESC_KEY = pygame.K_ESCAPE
-
+SPACE_KEY = pygame.K_SPACE
+JUMP_KEY = pygame.K_a
 
 class Game(object):
     def main(self, screen):
@@ -32,6 +34,7 @@ class Game(object):
         """ game stuff """
         clock = pygame.time.Clock()
         running = True
+        paused = False
 
         """ sprite stuff """
         player = Player()
@@ -58,6 +61,11 @@ class Game(object):
         t_ref = 0
         backgroundy = -600
 
+        "sound stuff"
+        Sound.start()
+        sounds = [sound_tuple_walk]
+        Sound.load_sounds(sounds)
+
         """ hey look! A Game loop! """
         while running:
             # lock frames at 60 fps
@@ -69,22 +77,33 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
-                if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
-                    running = False
-                if event.type == pygame.KEYDOWN and event.key == UP_KEY:
-                    player.move_up()
-                if event.type == pygame.KEYDOWN and event.key == DOWN_KEY:
-                    player.move_down()
-                if event.type == pygame.KEYDOWN and event.key == RIGHT_KEY:
-                    player.move_right()
-                if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
-                    player.move_left()
 
-            # Update operaions
-            bg.scroll(speed)
-            player.update(delta_time)
-            enemy_group.update(delta_time)
-            powerup_group.update(delta_time)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == ESC_KEY:
+                        running = False
+                    if event.key == SPACE_KEY:
+                        paused = not paused
+                    # Do not send these events if we are paused 
+                    if not paused:
+                        if event.key == UP_KEY:
+                            player.move_up()
+                        if event.key == DOWN_KEY:
+                            player.move_down()
+                        if event.key == RIGHT_KEY:
+                            player.move_right()
+                        if event.key == LEFT_KEY:
+                            player.move_left()
+                        if event.key == JUMP_KEY:
+                            player.jump()
+
+            #If we aren't paused, do this stuff
+            if not paused:
+                # Update operaions
+                bg.scroll(speed)
+                player.update(delta_time)
+                enemy_group.update(delta_time)
+                powerup_group.update(delta_time)
+                block_mgr.update(-80.0, delta_time)
 
             # Drawing operations
             #screen.fill(bgcolor)
@@ -99,6 +118,6 @@ class Game(object):
 
 if __name__ == '__main__':
     pygame.init()
-    print pygame.ver
+    print 'Pygame Version:',pygame.ver, '\nDisplay Driver:',pygame.display.get_driver()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.DOUBLEBUF)
     Game().main(screen)

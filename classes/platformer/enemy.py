@@ -1,6 +1,6 @@
 import pygame
 from spritesheet_functions import *
-import pygame.math
+from vector import V2
 
 """
 Enemy class
@@ -11,8 +11,8 @@ class Enemy(pygame.sprite.Sprite):
     """
     Initialize and set default vectors
     """
-    position = pygame.math.Vector2(900,200)
-    impulse = pygame.math.Vector2(-60,0)
+    position = V2(900,200)
+    impulse = V2(-60,0)
 
     class state:
         active, dying, dead = range(3)

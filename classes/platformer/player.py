@@ -1,17 +1,20 @@
 import pygame
+from vector import V2
 from spritesheet_functions import *
+from sound import *
+from constants import *
 
 """
 Player class
 """
 
-
 class Player(pygame.sprite.Sprite):
     """
     Initialize and set default vectors
     """
-    position = pygame.math.Vector2(100,300)
-    impulse = pygame.math.Vector2(0,0)
+    impulse = V2(0,0)
+    position = V2(100,300)
+
 
     class state:
         _none, running, jumping, evolving, hurt, dying, dead, powerup = range(8)
@@ -49,6 +52,11 @@ class Player(pygame.sprite.Sprite):
             print 'applying impulse', impulseToApply
         self.impulse.x += impulseToApply.x
         self.impulse.y += impulseToApply.y
+        Sound.play_sound_for_sound_id(sound_id_walk)
+
+    def apply_gravity(self):
+        gravity = pygame.math.Vector2(0,3.5)
+        self.applyImpulse(gravity)
 
     def move_up(self):
         upVec = pygame.math.Vector2(0,-1)
@@ -79,6 +87,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.impulse.x
         self.rect.y += self.impulse.y
         self.timer += dt
+        
+        if self.rect.y <600:
+            self.apply_gravity()
 
         if self.timer > .5:
             self.animate()
