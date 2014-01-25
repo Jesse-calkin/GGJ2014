@@ -16,18 +16,24 @@ class Block(Sprite):
         self.image.fill(random.choice(constants.TASTE_THE_RAINBOW))
         self.rect = self.image.get_rect()
 
+    def update(self, scroll_speed, delta_time):
+        self.rect.x += scroll_speed * delta_time
+
+        if self.rect.right < 0:
+            self.mgr.recycle_block()
+
 
 class BlockManager(object):
 
-    MAX_QUEUE_SIZE = 15
+    MAX_QUEUE_SIZE = 6
 
-    MAX_GAP_X = 30
+    MAX_GAP_X = 100
     MAX_GAP_Y = 15
 
-    MIN_WIDTH = 50
+    MIN_WIDTH = 150
     MIN_HEIGHT = 30
 
-    MAX_WIDTH = 70
+    MAX_WIDTH = 300
     MAX_HEIGHT = 50
 
     start_position = [0, constants.SCREEN_HEIGHT]
@@ -40,6 +46,7 @@ class BlockManager(object):
 
         for _ in range(self.MAX_QUEUE_SIZE):
             block = Block()
+            block.mgr = self
             self.obstacle_group.add(block)
             self.queue.put(block)
 
@@ -67,10 +74,13 @@ class BlockManager(object):
 
         x_gap = random.randint(0, self.MAX_GAP_X)
         y_gap = random.randint(0, self.MAX_GAP_Y)
+
         self.next_position[0] += x_gap + width
         self.next_position[1] = constants.SCREEN_HEIGHT - y_gap
 
-
+    def update(self, speed, delta_time):
+        self.next_position[0] += speed * delta_time
+        self.obstacle_group.update(speed, delta_time)
 
     def on_draw(self, surface):
         self.obstacle_group.draw(surface)

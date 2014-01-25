@@ -7,6 +7,7 @@ from enemy import *
 from powerup import *
 from blocks import BlockManager
 from parallax import *
+from sound import *
 
 
 
@@ -59,6 +60,11 @@ class Game(object):
         speed = 10
         t_ref = 0
 
+        "sound stuff"
+        Sound.start()
+        sounds = [sound_tuple_walk]
+        Sound.load_sounds(sounds)
+
         """ hey look! A Game loop! """
         while running:
             # lock frames at 60 fps
@@ -89,13 +95,15 @@ class Game(object):
                         if event.key == JUMP_KEY:
                             player.jump()
 
-	        #If we aren't paused, do this stuff
+            #If we aren't paused, do this stuff
             if not paused:
                 # Update operaions
                 bg.scroll(speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
                 powerup_group.update(delta_time)
+                block_mgr.update(-80.0, delta_time)
+
             # Drawing operations
             #screen.fill(bgcolor)
             bg.draw(screen)
