@@ -14,6 +14,7 @@ class Player(pygame.sprite.Sprite):
     position = pygame.math.Vector2(200,0)
     impulse = pygame.math.Vector2(0,0)
 
+    timer = 0
     # holding our animation frames for now
     frames = []
 
@@ -24,9 +25,9 @@ class Player(pygame.sprite.Sprite):
 
 
         sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
-        frame = sprite_sheet.getImage(0, 0, 102, 104)
+        frame = sprite_sheet.getImage(105, 108, 62, 92)
         self.frames.append(frame)
-        frame = sprite_sheet.getImage(0, 102, 102, 104)
+        frame = sprite_sheet.getImage(171, 108, 84, 92)
         self.frames.append(frame)
 
         # Fetch the rectangle object that has the dimensions of the image
@@ -41,7 +42,8 @@ class Player(pygame.sprite.Sprite):
         if not impulseToApply.is_normalized():
             impulseToApply = impulseToApply.normalize()
             print 'applying impulse', impulseToApply
-        self.impulse = impulseToApply
+        self.impulse.x += impulseToApply.x
+        self.impulse.y += impulseToApply.y
 
     def move_up(self):
         upVec = pygame.math.Vector2(0,-1)
@@ -65,7 +67,11 @@ class Player(pygame.sprite.Sprite):
         else:
             self.image = self.frames[0]
 
-    def update(self):
+    def update(self,dt):
         self.rect.x += self.impulse.x
         self.rect.y += self.impulse.y
-        self.animate()
+        self.timer += dt
+        
+        if self.timer > .5:
+            self.animate()
+            self.timer = 0

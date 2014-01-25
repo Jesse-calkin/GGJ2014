@@ -52,10 +52,10 @@ class Game(object):
                     player.move_right()
                 if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
                     player.move_left()
-            player.update()
+
+            player.update(delta_time)
             screen.fill(bgcolor)
             sprite_group.draw(screen)
-
             pygame.display.flip()
 
 
