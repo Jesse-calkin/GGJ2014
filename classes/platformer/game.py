@@ -32,6 +32,7 @@ class Game(object):
         player.rect.x = 400
         sprite_group = pygame.sprite.Group()
         sprite_group.add(player)
+        bgcolor = choice(TASTE_THE_RAINBOW)
 
         """ hey look! A Game loop! """
         while running:
@@ -45,8 +46,15 @@ class Game(object):
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
                     running = False
+                if event.type == pygame.KEYDOWN and event.key == UP_KEY:
+                    print event.key,'UP_KEY'
+                if event.type == pygame.KEYDOWN and event.key == DOWN_KEY:
+                    print event.key,'DOWN_KEY'
+                if event.type == pygame.KEYDOWN and event.key == RIGHT_KEY:
+                    print event.key,'RIGHT_KEY'
+                if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
+                    print event.key,'LEFT_KEY'
 
-            bgcolor = choice(TASTE_THE_RAINBOW)
             screen.fill(bgcolor)
             sprite_group.draw(screen)
 
