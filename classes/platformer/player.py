@@ -1,17 +1,18 @@
 import pygame
+from vector import V2
 from spritesheet_functions import *
 
 """
 Player class
 """
 
-
 class Player(pygame.sprite.Sprite):
     """
     Initialize and set default vectors
     """
-    position = pygame.math.Vector2(100,300)
-    impulse = pygame.math.Vector2(0,0)
+    impulse = V2(0,0)
+    position = V2(100,300)
+
 
     class state:
         _none, running, jumping, evolving, hurt, dying, dead, powerup = range(8)
