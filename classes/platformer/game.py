@@ -78,12 +78,12 @@ class Game(object):
                     player.move_left()
 	    # Update operaions
             bg.scroll(speed)
-            bg.draw(screen)
             player.update(delta_time)
             enemy_group.update(delta_time)
             powerup_group.update(delta_time)
             # Drawing operations
-            screen.fill(bgcolor)
+            #screen.fill(bgcolor)
+            bg.draw(screen)
             player_group.draw(screen)
             block_mgr.on_draw(screen)
             enemy_group.draw(screen)
