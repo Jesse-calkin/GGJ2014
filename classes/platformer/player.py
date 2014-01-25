@@ -1,5 +1,6 @@
 import pygame
 from spritesheet_functions import *
+import pygame.math
 
 """
 Player class
@@ -7,18 +8,46 @@ Player class
 
 
 class Player(pygame.sprite.Sprite):
+    """ 
+    Initialize and set default vectors
+    """
+    position = pygame.math.Vector2(200,0)
+    impulse = pygame.math.Vector2(0,0)
+
+    # holding our animation frames for now
+    frames = []
 
     # Constructor. Can also take color, width, height
     def __init__(self):
+        # Call the parent class (Sprite) constructor - like calling super
+        pygame.sprite.Sprite.__init__(self)
 
-       # Call the parent class (Sprite) constructor - like calling super
-       pygame.sprite.Sprite.__init__(self)
 
-       # Create an image of the block, and fill it with a color.
-       # This could also be an image loaded from the disk.
-       sprite_sheet = SpriteSheet("../../resources/sprites/nyan_cat.png")
-       self.image = sprite_sheet.getImage(13, 131, 32, 30)
+        sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
+        frame = sprite_sheet.getImage(0, 0, 102, 104)
+        self.frames.append(frame)
+        frame = sprite_sheet.getImage(0, 102, 102, 104)
+        self.frames.append(frame)
 
-       # Fetch the rectangle object that has the dimensions of the image
-       # Update the position of this object by setting the values of rect.x and rect.y
-       self.rect = self.image.get_rect()
+        # Fetch the rectangle object that has the dimensions of the image
+        self.image = self.frames[0]
+        self.rect = self.frames[0].get_rect()
+
+        self.rect.x = self.position.x
+        self.rect.y = self.position.y
+
+    def applyImpulse(self,vec2):
+        impulseToApply = vec2
+        if not impulseToApply.is_normalized():
+            impulseToApply = impulseToApply.normalize()
+            print 'applying impulse', impulseToApply
+        self.impulse = impulseToApply
+
+    def animate(self):
+        if self.image == self.frames[0]:
+            self.image = self.frames[1]
+        else:
+            self.image = self.frames[0]
+
+    def update(self):
+        pass

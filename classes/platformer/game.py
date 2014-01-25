@@ -9,7 +9,6 @@ This is a basic game stub from which to expand upon.
 """
 
 
-
 #Input
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
@@ -21,29 +20,45 @@ ESC_KEY = pygame.K_ESCAPE
 
 class Game(object):
     def main(self, screen):
-    	""" game stuff """
+        global delta_time
+
+        """ game stuff """
         clock = pygame.time.Clock()
-    	running = True
+        running = True
 
         """ sprite stuff """
         player = Player()
-        player.rect.y = 400
-        player.rect.x = 400
-    	sprite_group = pygame.sprite.Group()
+        sprite_group = pygame.sprite.Group()
         sprite_group.add(player)
+        bgcolor = choice(TASTE_THE_RAINBOW)
 
-    	""" hey look! A Game loop! """
+        """ hey look! A Game loop! """
         while running:
+            # lock frames at 60 fps
+            # TODO(caleb): separate draw and update logic based off time if needed.
+            ms_since_last_tick = clock.tick(60)
+            delta_time = 1.0 / float(ms_since_last_tick)
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
                     running = False
-            bgcolor = choice(TASTE_THE_RAINBOW)
+                if event.type == pygame.KEYDOWN and event.key == UP_KEY:
+                    print event.key,'UP_KEY'
+                if event.type == pygame.KEYDOWN and event.key == DOWN_KEY:
+                    print event.key,'DOWN_KEY'
+                if event.type == pygame.KEYDOWN and event.key == RIGHT_KEY:
+                    print event.key,'RIGHT_KEY'
+                    player.applyImpulse(pygame.math.Vector2(5,5))
+                if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
+                    print event.key,'LEFT_KEY'
+
             screen.fill(bgcolor)
             sprite_group.draw(screen)
+
             pygame.display.flip()
-            clock.tick(60)
+
 
 if __name__ == '__main__':
     pygame.init()
