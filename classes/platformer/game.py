@@ -50,7 +50,6 @@ class Game(object):
                     print event.key,'DOWN_KEY'
                 if event.type == pygame.KEYDOWN and event.key == RIGHT_KEY:
                     print event.key,'RIGHT_KEY'
-                    player.applyImpulse(pygame.math.Vector2(5,5))
                 if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
                     print event.key,'LEFT_KEY'
 

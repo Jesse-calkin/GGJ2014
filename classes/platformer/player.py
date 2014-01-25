@@ -43,6 +43,22 @@ class Player(pygame.sprite.Sprite):
             print 'applying impulse', impulseToApply
         self.impulse = impulseToApply
 
+    def move_up(self):
+        upVec = pygame.math.Vector2(0,1)
+        self.applyImpulse(upVec)
+
+    def move_down(self):
+        downVec = pygame.math.Vector2(0,-1)
+        self.applyImpulse(downVec)
+
+    def move_right(self):
+        rightVec = pygame.math.Vector2(1,0)
+        self.applyImpulse(rightVec)
+
+    def move_left(self):
+        leftVec = pygame.math.Vector2(-1,0)
+        self.applyImpulse(leftVec)
+
     def animate(self):
         if self.image == self.frames[0]:
             self.image = self.frames[1]
@@ -50,4 +66,6 @@ class Player(pygame.sprite.Sprite):
             self.image = self.frames[0]
 
     def update(self):
-        pass
+        self.rect.x += self.impulse.x
+        self.rect.y += self.impulse.y
+        self.animate()
