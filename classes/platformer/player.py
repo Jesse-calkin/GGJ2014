@@ -14,6 +14,12 @@ class Player(pygame.sprite.Sprite):
     position = pygame.math.Vector2(200,0)
     impulse = pygame.math.Vector2(0,0)
 
+    class state:
+        running, jumping, evolving, hurt, dying, dead, powerup = range(7)
+
+    class organism:
+        protozoa, fish, mudskipper, shark, whale, mouse, lizard, dinosaur, mastodon, monkey, person, spaceMonster, quark = range(13)
+
     timer = 0
     # holding our animation frames for now
     frames = []
@@ -60,6 +66,9 @@ class Player(pygame.sprite.Sprite):
     def move_left(self):
         leftVec = pygame.math.Vector2(-1,0)
         self.applyImpulse(leftVec)
+
+    def set_organism(self,organism):
+        self.organism = organism
 
     def animate(self):
         if self.image == self.frames[0]:
