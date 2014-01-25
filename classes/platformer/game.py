@@ -9,7 +9,6 @@ This is a basic game stub from which to expand upon.
 """
 
 
-
 #Input
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
@@ -21,18 +20,18 @@ ESC_KEY = pygame.K_ESCAPE
 
 class Game(object):
     def main(self, screen):
-    	""" game stuff """
+        """ game stuff """
         clock = pygame.time.Clock()
-    	running = True
+        running = True
 
         """ sprite stuff """
         player = Player()
         player.rect.y = 400
         player.rect.x = 400
-    	sprite_group = pygame.sprite.Group()
+        sprite_group = pygame.sprite.Group()
         sprite_group.add(player)
 
-    	""" hey look! A Game loop! """
+        """ hey look! A Game loop! """
         while running:
             for event in pygame.event.get():
                 if event.type == QUIT:
