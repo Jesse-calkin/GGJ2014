@@ -79,11 +79,14 @@ class Game(object):
                         player.move_right()
                     if event.key == LEFT_KEY:
                         player.move_left()
-	    # Update operaions
+            # Update operaions
             bg.scroll(speed)
+
             player.update(delta_time)
             enemy_group.update(delta_time)
             powerup_group.update(delta_time)
+            block_mgr.update(-80.0, delta_time)
+
             # Drawing operations
             #screen.fill(bgcolor)
             bg.draw(screen)
