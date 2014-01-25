@@ -11,7 +11,7 @@ class Sound(object):
 		for sound_tuple_to_load in sounds:
 			sound_id = sound_tuple_to_load[cls.sound_tuple_index_sound_id]
 			sound_filename = sound_tuple_to_load[cls.sound_tuple_index_sound_filename]
-        sound = pygame.mixer.Sound(sound_filename)
+			sound = pygame.mixer.Sound(sound_filename)
 
 			cls.loaded_sounds[sound_id] = (sound_id, sound_filename, sound)
 
@@ -21,7 +21,7 @@ class Sound(object):
 		sound.play()
 
 	@classmethod
-	def stop_sound_for_sound_id(sound_id):
+	def stop_sound_for_sound_id(cls, sound_id):
 		sound = cls.sound_for_sound_id(sound_id)
 		sound.stop()
 
