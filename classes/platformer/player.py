@@ -44,11 +44,11 @@ class Player(pygame.sprite.Sprite):
         self.impulse = impulseToApply
 
     def move_up(self):
-        upVec = pygame.math.Vector2(0,1)
+        upVec = pygame.math.Vector2(0,-1)
         self.applyImpulse(upVec)
 
     def move_down(self):
-        downVec = pygame.math.Vector2(0,-1)
+        downVec = pygame.math.Vector2(0,1)
         self.applyImpulse(downVec)
 
     def move_right(self):

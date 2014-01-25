@@ -45,14 +45,14 @@ class Game(object):
                 if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == UP_KEY:
-                    print event.key,'UP_KEY'
+                    player.move_up()
                 if event.type == pygame.KEYDOWN and event.key == DOWN_KEY:
-                    print event.key,'DOWN_KEY'
+                    player.move_down()
                 if event.type == pygame.KEYDOWN and event.key == RIGHT_KEY:
-                    print event.key,'RIGHT_KEY'
+                    player.move_right()
                 if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
-                    print event.key,'LEFT_KEY'
-
+                    player.move_left()
+            player.update()
             screen.fill(bgcolor)
             sprite_group.draw(screen)
 
