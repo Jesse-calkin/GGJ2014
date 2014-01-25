@@ -68,6 +68,8 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
+                if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
+                    running = False
                 if event.type == pygame.KEYDOWN and event.key == UP_KEY:
                     player.move_up()
                 if event.type == pygame.KEYDOWN and event.key == DOWN_KEY:
