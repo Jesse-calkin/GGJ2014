@@ -24,9 +24,9 @@ class Player(pygame.sprite.Sprite):
 
 
         sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
-        frame = sprite_sheet.getImage(108, 108, 171, 198)
+        frame = sprite_sheet.getImage(0, 0, 102, 104)
         self.frames.append(frame)
-        frame = sprite_sheet.getImage(171, 108, 254, 198)
+        frame = sprite_sheet.getImage(0, 102, 102, 104)
         self.frames.append(frame)
 
         # Fetch the rectangle object that has the dimensions of the image
@@ -35,7 +35,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x = self.position.x
         self.rect.y = self.position.y
-        
+
     def applyImpulse(self,vec2):
         impulseToApply = vec2
         if not impulseToApply.is_normalized():
@@ -44,7 +44,10 @@ class Player(pygame.sprite.Sprite):
         self.impulse = impulseToApply
 
     def animate(self):
-        pass
+        if self.image == self.frames[0]:
+            self.image = self.frames[1]
+        else:
+            self.image = self.frames[0]
 
     def update(self):
         pass
