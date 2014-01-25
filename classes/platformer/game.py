@@ -2,6 +2,7 @@ import pygame
 from random import choice
 from constants import *
 from player import *
+from obstaclemgr import BlockManager
 
 """Base Game
 
@@ -32,13 +33,16 @@ class Game(object):
         player.rect.x = 400
         sprite_group = pygame.sprite.Group()
         sprite_group.add(player)
-        bgcolor = choice(TASTE_THE_RAINBOW)
+        bgcolor = WHITE
+
+        block_mgr = BlockManager()
 
         """ hey look! A Game loop! """
         while running:
             # lock frames at 60 fps
             # TODO(caleb): separate draw and update logic based off time if needed.
-            ms_since_last_tick = clock.tick(60)
+            fps = 60
+            ms_since_last_tick = clock.tick(fps)
             delta_time = 1.0 / float(ms_since_last_tick)
 
             for event in pygame.event.get():
@@ -57,6 +61,8 @@ class Game(object):
 
             screen.fill(bgcolor)
             sprite_group.draw(screen)
+
+            block_mgr.on_draw(screen)
 
             pygame.display.flip()
 
