@@ -28,8 +28,6 @@ class Game(object):
 
         """ sprite stuff """
         player = Player()
-        player.rect.y = 400
-        player.rect.x = 400
         sprite_group = pygame.sprite.Group()
         sprite_group.add(player)
         bgcolor = choice(TASTE_THE_RAINBOW)
@@ -52,6 +50,7 @@ class Game(object):
                     print event.key,'DOWN_KEY'
                 if event.type == pygame.KEYDOWN and event.key == RIGHT_KEY:
                     print event.key,'RIGHT_KEY'
+                    player.applyImpulse(pygame.math.Vector2(5,5))
                 if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
                     print event.key,'LEFT_KEY'
 
