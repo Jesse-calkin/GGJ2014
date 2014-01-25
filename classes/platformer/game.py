@@ -68,16 +68,17 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
-                if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
-                    running = False
-                if event.type == pygame.KEYDOWN and event.key == UP_KEY:
-                    player.move_up()
-                if event.type == pygame.KEYDOWN and event.key == DOWN_KEY:
-                    player.move_down()
-                if event.type == pygame.KEYDOWN and event.key == RIGHT_KEY:
-                    player.move_right()
-                if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
-                    player.move_left()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == ESC_KEY:
+                        running = False
+                    if event.key == UP_KEY:
+                        player.move_up()
+                    if event.key == DOWN_KEY:
+                        player.move_down()
+                    if event.key == RIGHT_KEY:
+                        player.move_right()
+                    if event.key == LEFT_KEY:
+                        player.move_left()
 	    # Update operaions
             bg.scroll(speed)
             player.update(delta_time)
@@ -96,6 +97,6 @@ class Game(object):
 
 if __name__ == '__main__':
     pygame.init()
-    print pygame.ver
+    print 'Pygame Version:',pygame.ver, '\nDisplay Driver:',pygame.display.get_driver()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.DOUBLEBUF)
     Game().main(screen)
