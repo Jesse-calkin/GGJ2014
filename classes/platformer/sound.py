@@ -65,6 +65,7 @@ def test_sounds():
 
 "Main"
 
-start()
-test_sounds()
-stop()
+if __name__ == '__main__':
+	start()
+	test_sounds()
+	stop()
