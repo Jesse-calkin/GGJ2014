@@ -20,6 +20,8 @@ ESC_KEY = pygame.K_ESCAPE
 
 class Game(object):
     def main(self, screen):
+        global delta_time
+
         """ game stuff """
         clock = pygame.time.Clock()
         running = True
@@ -33,16 +35,23 @@ class Game(object):
 
         """ hey look! A Game loop! """
         while running:
+            # lock frames at 60 fps
+            # TODO(caleb): separate draw and update logic based off time if needed.
+            ms_since_last_tick = clock.tick(60)
+            delta_time = 1.0 / float(ms_since_last_tick)
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
                     running = False
+
             bgcolor = choice(TASTE_THE_RAINBOW)
             screen.fill(bgcolor)
             sprite_group.draw(screen)
+
             pygame.display.flip()
-            clock.tick(60)
+
 
 if __name__ == '__main__':
     pygame.init()
