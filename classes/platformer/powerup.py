@@ -79,7 +79,7 @@ class Powerup(pygame.sprite.Sprite):
         self.rect.x += self.impulse.x * dt
         self.rect.y += self.impulse.y * dt
         self.timer += dt
-        
+
         if self.timer > .5:
             self.animate()
             self.timer = 0

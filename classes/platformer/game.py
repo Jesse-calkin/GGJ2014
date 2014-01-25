@@ -54,8 +54,9 @@ class Game(object):
         bg = ParallaxSurface(pygame.RLEACCEL)
         bg.add('../../resources/backgrounds/testbackground.png', 5)
         bg.add('../../resources/backgrounds/testforeground.png', 2)
-        speed = 10
+        speed = 5
         t_ref = 0
+        backgroundy = -600
 
         """ hey look! A Game loop! """
         while running:
@@ -78,14 +79,16 @@ class Game(object):
                     player.move_right()
                 if event.type == pygame.KEYDOWN and event.key == LEFT_KEY:
                     player.move_left()
-	    # Update operaions
+
+            # Update operaions
             bg.scroll(speed)
             player.update(delta_time)
             enemy_group.update(delta_time)
             powerup_group.update(delta_time)
+
             # Drawing operations
             #screen.fill(bgcolor)
-            bg.draw(screen)
+            bg.draw(screen, backgroundy)
             player_group.draw(screen)
             block_mgr.on_draw(screen)
             enemy_group.draw(screen)
