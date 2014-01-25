@@ -58,19 +58,23 @@ class ParallaxSurface:
             surface.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
         self.levels.append(_subsurface(surface, scroll_factor))
 
-    def draw(self, surface):
+    def draw(self, surface, arg1):
         ''' This draws all parallax levels to the surface
             provided as argument '''
         s_width = self.size
         s_height = self.size
 
-        surface.blit(self.levels[0].surface,  (0, -600), (self.levels[0].scroll, 0, s_width, s_height))
-        surface.blit(self.levels[0].surface, (self.levels[0].surface.get_width() - self.levels[0].scroll,  -600), (0, 0, self.levels[0].scroll, s_height))
-        surface.blit(self.levels[1].surface, (0, 0), (self.levels[1].scroll, 0, s_width, s_height))
-        surface.blit(self.levels[1].surface, (self.levels[1].surface.get_width() - self.levels[1].scroll, 0), (0, 0, self.levels[1].scroll, s_height))
+        for lvl in self.levels:
+            surface.blit(lvl.surface, (0, 0),
+                        (lvl.scroll, 0, s_width, s_height))
+            surface.blit(lvl.surface,
+                        (lvl.surface.get_width() - lvl.scroll, 0),
+                         (0, 0, lvl.scroll, s_height))
 
     def scroll(self, offset):
         '''scroll moves each surface _offset_ pixels / assigned factor'''
+
         self.scroller = (self.scroller + offset)
+
         for lvl in self.levels:
             lvl.scroll = (self.scroller / lvl.factor) % lvl.surface.get_width()
