@@ -81,8 +81,8 @@ class Game(object):
             powerup_group.draw(screen)
             pygame.display.flip()
 
-
 if __name__ == '__main__':
     pygame.init()
+    print pygame.ver
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     Game().main(screen)

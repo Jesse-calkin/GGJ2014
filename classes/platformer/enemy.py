@@ -77,8 +77,8 @@ class Enemy(pygame.sprite.Sprite):
             self.image = self.frames[0]
 
     def update(self,dt):
-        self.rect.x += self.impulse.x
-        self.rect.y += self.impulse.y
+        self.rect.x *= self.impulse.x * dt
+        self.rect.y *= self.impulse.y * dt
         self.timer += dt
         
         if self.timer > .5:
