@@ -3,8 +3,8 @@
 Taken from the spritesheet tutorial at http://programarcadegames.com/python_examples/sprite_sheets/
 """
 import pygame
-
 from constants import *
+
 
 class SpriteSheet():
     """ Class used to grab images out of a sprite sheet. """
@@ -16,7 +16,6 @@ class SpriteSheet():
 
         # Load the sprite sheet.
         self.sprite_sheet = pygame.image.load(file_name).convert()
-
 
     def getImage(self, x, y, width, height):
         """ Grab a single image out of a larger spritesheet

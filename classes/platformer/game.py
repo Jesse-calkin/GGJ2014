@@ -1,7 +1,11 @@
 import pygame
+import sys
 from random import choice
 from constants import *
 from player import *
+from paralaxx import *
+
+
 
 """Base Game
 
@@ -21,7 +25,7 @@ ESC_KEY = pygame.K_ESCAPE
 class Game(object):
     def main(self, screen):
         """ game stuff """
-        clock = pygame.time.Clock()
+        #clock = pygame.time.Clock()
         running = True
 
         """ sprite stuff """
@@ -31,20 +35,27 @@ class Game(object):
         sprite_group = pygame.sprite.Group()
         sprite_group.add(player)
 
+        """background stuff"""
+        bg = parallax.ParallaxSurface(pygame.RLEACCEL)
+        bg.add('../../resources/backgrounds/testbackground.png', 5)
+        bg.add('../../resources/backgrounds/testforeground.png', 2)
+
+        speed = 10
+        t_ref = 0
+
         """ hey look! A Game loop! """
         while running:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
-                if event.type == pygame.KEYDOWN and event.key == ESC_KEY:
-                    running = False
-            bgcolor = choice(TASTE_THE_RAINBOW)
-            screen.fill(bgcolor)
-            sprite_group.draw(screen)
-            pygame.display.flip()
-            clock.tick(60)
+
+            bg.scroll(speed)
+            t = pygame.time.get_ticks()
+            if (t - t_ref) > 60:
+                bg.draw(screen)
+                pygame.display.flip()
 
 if __name__ == '__main__':
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.DOUBLEBUF)
     Game().main(screen)
