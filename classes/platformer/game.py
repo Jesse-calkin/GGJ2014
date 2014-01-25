@@ -2,7 +2,7 @@ import pygame
 from random import choice
 from constants import *
 from player import *
-from obstaclemgr import BlockManager
+from blocks import BlockManager
 
 """Base Game
 
