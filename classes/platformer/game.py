@@ -24,7 +24,7 @@ DOWN_KEY = pygame.K_DOWN
 QUIT = pygame.QUIT
 ESC_KEY = pygame.K_ESCAPE
 SPACE_KEY = pygame.K_SPACE
-
+JUMP_KEY = pygame.K_a
 
 class Game(object):
     def main(self, screen):
@@ -76,6 +76,7 @@ class Game(object):
                         running = False
                     if event.key == SPACE_KEY:
                         paused = not paused
+                    # Do not send these events if we are paused 
                     if not paused:
                         if event.key == UP_KEY:
                             player.move_up()
@@ -85,6 +86,8 @@ class Game(object):
                             player.move_right()
                         if event.key == LEFT_KEY:
                             player.move_left()
+                        if event.key == JUMP_KEY:
+                            player.jump()
 
 	        #If we aren't paused, do this stuff
             if not paused:

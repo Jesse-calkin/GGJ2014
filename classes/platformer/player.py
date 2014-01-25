@@ -12,6 +12,7 @@ class Player(pygame.sprite.Sprite):
     """
     impulse = V2(0,0)
     position = V2(100,300)
+    is_jumping = False
 
 
     class state:
@@ -48,8 +49,17 @@ class Player(pygame.sprite.Sprite):
         if not impulseToApply.is_normalized():
             impulseToApply = impulseToApply.normalize()
             print 'applying impulse', impulseToApply
-        self.impulse.x += impulseToApply.x
-        self.impulse.y += impulseToApply.y
+        self.impulse.add(impulseToApply)
+
+    def apply_gravity(self):
+        gravity = pygame.math.Vector2(0,3.5)
+        self.applyImpulse(gravity)
+
+    def jump(self):
+        if not self.is_jumping:
+            jumping_force = pygame.math.Vector2(0,-4.5)
+            self.is_jumping = True
+            self.applyImpulse(jumping_force)
 
     def move_up(self):
         upVec = pygame.math.Vector2(0,-1)
@@ -77,9 +87,12 @@ class Player(pygame.sprite.Sprite):
             self.image = self.frames[0]
 
     def update(self,dt):
-        self.rect.x += self.impulse.x
-        self.rect.y += self.impulse.y
+        self.rect.x += self.impulse.x * dt
+        self.rect.y += self.impulse.y * dt
         self.timer += dt
+
+        if not self.is_jumping:
+            self.apply_gravity()
 
         if self.timer > .5:
             self.animate()
