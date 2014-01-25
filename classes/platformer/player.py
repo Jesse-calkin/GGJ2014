@@ -1,6 +1,8 @@
 import pygame
 from vector import V2
 from spritesheet_functions import *
+from sound import *
+from constants import *
 
 """
 Player class
@@ -50,6 +52,7 @@ class Player(pygame.sprite.Sprite):
             print 'applying impulse', impulseToApply
         self.impulse.x += impulseToApply.x
         self.impulse.y += impulseToApply.y
+        Sound.play_sound_for_sound_id(sound_id_walk)
 
     def move_up(self):
         upVec = pygame.math.Vector2(0,-1)

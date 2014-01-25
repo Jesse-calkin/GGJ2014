@@ -7,6 +7,7 @@ from enemy import *
 from powerup import *
 from blocks import BlockManager
 from parallax import *
+from sound import *
 
 
 
@@ -58,6 +59,11 @@ class Game(object):
         bg.add('../../resources/backgrounds/testforeground.png', 2)
         speed = 10
         t_ref = 0
+
+        "sound stuff"
+        Sound.start()
+        sounds = [sound_tuple_walk]
+        Sound.load_sounds(sounds)
 
         """ hey look! A Game loop! """
         while running:
