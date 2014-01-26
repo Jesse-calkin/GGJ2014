@@ -42,7 +42,7 @@ class Game(object):
 
     level = Level.first_level()
 
-    def update_background_images(self):
+    def update_background_images_for_current_level(self):
         pass
 
     def update_player_for_current_level(self):
@@ -68,7 +68,7 @@ class Game(object):
             self.reached_the_end()
 
     def update_for_current_level(self):
-        self.update_background_images()
+        self.update_background_images_for_current_level()
         self.update_player_for_current_level()
 
     def toggle_fullscreen(self):
