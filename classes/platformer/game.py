@@ -30,6 +30,7 @@ SPACE_KEY = pygame.K_SPACE
 JUMP_KEY = pygame.K_a
 FULLSCREEN_KEY = pygame.K_f
 
+
 class Game(object):
     level_score = 0
     total_score = 0
@@ -37,7 +38,7 @@ class Game(object):
     evolv_threshold = 10
     is_fullscreen = False
     world_speed = 1.0  # 1x
-    max_speed = 2.0
+    max_speed = 10.0
     speed_increase = 0.002
     last_speed_increase = 0  # last time the speed was increased
 
@@ -54,6 +55,7 @@ class Game(object):
 
     def update_player_for_current_level(self, player):
         player.level = self.level
+        player.update_sprite(self.level.player_sprite_filepath, self.level.player_textmap_filepath)
         if self.level.has_blocks:
             player.on_ground = True
 

@@ -9,16 +9,17 @@ from constants import *
 Player class
 """
 
+
 class Player(pygame.sprite.Sprite):
     """
     Initialize and set default vectors
     """
-    impulse = V2(0,0)
-    position = V2(100,300)
+    impulse = V2(0, 0)
+    position = V2(100, 300)
     on_ground = False
     level = None
     is_jumping = False
-    jumpulse = V2(0,-150)
+    jumpulse = V2(0, -150)
     jumptimer = 0
 
     timer = 0
@@ -30,18 +31,7 @@ class Player(pygame.sprite.Sprite):
         # Call the parent class (Sprite) constructor - like calling super
         pygame.sprite.Sprite.__init__(self)
 
-        sprite_sheet = SpriteSheet("../../resources/sprites/Amoeba.png")
-
-        self.frames = sprite_sheet.get_frames_from_texmap("../../resources/sprites/Amoeba.json")
-        
-        # Fetch the rectangle object that has the dimensions of the image
-        self.image = self.frames[0]
-        self.rect = self.frames[0].get_rect()
-
-        self.rect.x = self.position.x
-        self.rect.y = self.position.y
-
-    def applyImpulse(self,vec2):
+    def applyImpulse(self, vec2):
         self.impulse.x += vec2.x
         self.impulse.y += vec2.y
 
@@ -49,7 +39,7 @@ class Player(pygame.sprite.Sprite):
         self.applyImpulse(self.level.gravity)
 
     def jump(self):
-        if not self.is_jumping and self.level.gravity.y>0:
+        if not self.is_jumping and self.level.gravity.y > 0:
             self.is_jumping = True
             self.applyImpulse(self.jumpulse)
             print 'jump'
@@ -65,14 +55,14 @@ class Player(pygame.sprite.Sprite):
         Sound.play_sound_for_sound_id(sound_id_walk)
 
     def move_right(self):
-        rightVec = pygame.math.Vector2(1,0)
+        rightVec = pygame.math.Vector2(1, 0)
         self.applyImpulse(rightVec)
 
     def move_left(self):
-        leftVec = pygame.math.Vector2(-1,0)
+        leftVec = pygame.math.Vector2(-1, 0)
         self.applyImpulse(leftVec)
 
-    def set_organism(self,organism):
+    def set_organism(self, organism):
         self.organism = organism
 
     def animate(self):
@@ -81,7 +71,7 @@ class Player(pygame.sprite.Sprite):
         else:
             self.image = self.frames[1]
 
-    def update(self,dt):
+    def update(self, dt):
         self.timer += dt
         self.rect.x += self.impulse.x * dt
         self.rect.y += self.impulse.y * dt
@@ -107,10 +97,19 @@ class Player(pygame.sprite.Sprite):
                 self.apply_gravity()
             else:
                 self.jumptimer += dt
-        
+
         if not self.is_jumping:
             self.apply_gravity()
 
         if self.timer > .5:
             self.animate()
             self.timer = 0
+
+    def update_sprite(self, filename1, filename2):
+        sprite_sheet = SpriteSheet(filename1)
+        self.frames = sprite_sheet.get_frames_from_texmap(filename2)
+        self.image = self.frames[2]
+        self.rect = self.frames[2].get_rect()
+        # Fetch the rectangle object that has the dimensions of the image
+        self.rect.x = self.position.x
+        self.rect.y = self.position.y

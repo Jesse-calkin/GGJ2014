@@ -1,5 +1,26 @@
 {
   "frames": [
+   {
+      "filename": "Lil 2.png",
+      "frame": {
+        "x": 619,
+        "y": 2,
+        "w": 258,
+        "h": 318
+      },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 1,
+        "y": 0,
+        "w": 258,
+        "h": 318
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 318
+      }
+    },
     {
       "filename": "Big 1.png",
       "frame": {
@@ -42,27 +63,7 @@
         "h": 414
       }
     },
-    {
-      "filename": "Lil 2.png",
-      "frame": {
-        "x": 619,
-        "y": 2,
-        "w": 258,
-        "h": 318
-      },
-      "rotated": true,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 1,
-        "y": 0,
-        "w": 258,
-        "h": 318
-      },
-      "sourceSize": {
-        "w": 260,
-        "h": 318
-      }
-    },
+
     {
       "filename": "Lil1.png",
       "frame": {
