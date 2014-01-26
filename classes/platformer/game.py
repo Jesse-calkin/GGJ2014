@@ -42,7 +42,10 @@ class Game(object):
 
     level = Level.first_level()
 
-    def update_background_images(self):
+    def update_background_images_for_current_level(self):
+        pass
+
+    def update_player_for_current_level(self):
         pass
 
     def should_transition(self):
@@ -60,8 +63,13 @@ class Game(object):
         next_level = self.level.next_level()
         if next_level:
             self.level = next_level
+            self.update_for_current_level()
         else:
             self.reached_the_end()
+
+    def update_for_current_level(self):
+        self.update_background_images_for_current_level()
+        self.update_player_for_current_level()
 
     def toggle_fullscreen(self):
         self.paused = True
@@ -99,13 +107,13 @@ class Game(object):
         bg.add('../../resources/backgrounds/primordial.jpg', 5)
         bg.add('../../resources/backgrounds/testforeground.png', 2)
         speed = 5
-        t_ref = 0
-        backgroundy = -600
 
         "sound stuff"
         Sound.start()
-        sounds = [sound_tuple_walk]
+        sounds = [sound_tuple_walk, sound_tuple_eat]
         Sound.load_sounds(sounds)
+
+        self.update_for_current_level()
 
         is_moving_up = False
         is_moving_down = False
@@ -158,7 +166,7 @@ class Game(object):
             #If we aren't paused, do this stuff
             if not paused:
                 # Update operaions
-                bg.scroll(speed)
+                bg.scroll(speed*self.world_speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
                 block_mgr.update(self.world_speed, delta_time)
@@ -167,6 +175,7 @@ class Game(object):
             powerup = pygame.sprite.spritecollideany(player, powerup_mgr.group)
             if powerup:
                 print "collided with powerup: %s" % powerup.powerup_type
+                Sound.play_sound_for_sound_id(sound_id_eat)
                 powerup.collided(player)
                 self.level_score = self.level_score + 1
                 self.total_score = self.total_score + 1
@@ -182,8 +191,7 @@ class Game(object):
 
 
             # Drawing operations
-            #screen.fill(bgcolor)
-            bg.draw(screen, backgroundy)
+            bg.draw(screen)
             player_group.draw(screen)
             block_mgr.on_draw(screen)
             enemy_group.draw(screen)
