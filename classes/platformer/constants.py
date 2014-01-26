@@ -52,4 +52,4 @@ sound_tuple_dinosaur_move = (sound_id_dinosaur_move, "resources/sounds/dino_jump
 sound_id_dragon_move = "dragon_move"
 sound_tuple_dragon_move = (sound_id_dragon_move, "resources/sounds/Dragon_move_wingbeat_roar.wav", 4)
 
-all_sounds_to_load = [sound_tuple_eat, sound_tuple_evolve, sound_tuple_amoeba_die, sound_tuple_fish_die, sound_tuple_amoeba_move, sound_tuple_fish_move, sound_tuple_dinosaur_move]
+all_sounds_to_load = [sound_tuple_eat, sound_tuple_evolve, sound_tuple_amoeba_die, sound_tuple_fish_die, sound_tuple_dinosaur_die, sound_tuple_dragon_die, sound_tuple_amoeba_move, sound_tuple_fish_move, sound_tuple_dinosaur_move, sound_tuple_dragon_move]
