@@ -66,10 +66,12 @@ class Player(pygame.sprite.Sprite):
         self.organism = organism
 
     def animate(self):
-        if self.image == self.frames[0]:
-            self.image = self.frames[0]
+        if self.frame_index >= len(self.frames)-1:
+            self.frame_index = 0
         else:
-            self.image = self.frames[0]
+            self.frame_index += 1
+            self.image = self.frames[self.frame_index]
+
 
     def update(self, dt):
         self.timer += dt
@@ -108,8 +110,9 @@ class Player(pygame.sprite.Sprite):
     def update_sprite(self, filename1, filename2):
         sprite_sheet = SpriteSheet(filename1)
         self.frames = sprite_sheet.get_frames_from_texmap(filename2)
-        self.image = self.frames[0]
-        self.rect = self.frames[0].get_rect()
+        self.frame_index = 0
+        self.image = self.frames[self.frame_index]
+        self.rect = self.frames[self.frame_index].get_rect()
         # Fetch the rectangle object that has the dimensions of the image
         self.rect.x = self.position.x
         self.rect.y = self.position.y
