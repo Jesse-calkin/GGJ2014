@@ -5,7 +5,7 @@ Global constants
 #Global Game Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-FRAME_RATE = 30
+FRAME_RATE = 60
 
 #Colors!
 BLACK = (000, 000, 000)
@@ -22,3 +22,6 @@ TASTE_THE_RAINBOW = [RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET]
 # Sounds
 sound_id_walk = "walk"
 sound_tuple_walk = (sound_id_walk, "../../resources/sounds/swish.ogg")
+
+sound_id_eat = "eat"
+sound_tuple_eat = (sound_id_eat, "../../resources/sounds/cancel.ogg")

@@ -21,10 +21,15 @@ class Block(Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, scroll_speed, delta_time):
+        change = scroll_speed * BLOCK_VELOCITY.x * delta_time
+
         self.rect.x += scroll_speed * BLOCK_VELOCITY.x * delta_time
 
         if self.rect.right < 0:
             self.mgr.recycle_block()
+        #TODO(caleb) XXX: not really sure what's going on, but here's a hack.
+        elif self.rect.x < 0:
+             self.rect.x += -1
 
 
 class BlockManager(object):
