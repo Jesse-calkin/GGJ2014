@@ -57,6 +57,7 @@ class Game(object):
     transition_duration = 1500  # ms
 
     def die(self):
+        Sound.play_sound_for_sound_id(self.level.die_sound_id)
         first_level = Level.first_level()
         self.transition_to_level(first_level)
 

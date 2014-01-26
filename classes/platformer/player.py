@@ -53,13 +53,13 @@ class Player(pygame.sprite.Sprite):
         if not self.level.gravity.y == 1:
             upVec = pygame.math.Vector2(0, -3)
             self.applyImpulse(upVec)
-            Sound.play_sound_for_sound_id(sound_id_amoeba_move)
+            Sound.play_sound_for_sound_id(self.level.move_sound_id)
 
     def move_down(self):
         if not self.level.gravity.y == 1:
             downVec = pygame.math.Vector2(0, 3)
             self.applyImpulse(downVec)
-            Sound.play_sound_for_sound_id(sound_id_amoeba_move)
+            Sound.play_sound_for_sound_id(self.level.move_sound_id)
 
     def move_right(self):
         rightVec = pygame.math.Vector2(1, 0)
