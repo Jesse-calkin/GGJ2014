@@ -110,7 +110,7 @@ class Game(object):
                             player.move_right()
                         if event.key == LEFT_KEY:
                             player.move_left()
-                        if event.key == JUMP_KEY:
+                        if event.key == JUMP_KEY and player.on_ground:
                             player.jump()
 
             #If we aren't paused, do this stuff

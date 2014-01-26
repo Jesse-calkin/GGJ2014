@@ -76,6 +76,9 @@ class Player(pygame.sprite.Sprite):
         leftVec = pygame.math.Vector2(-1,0)
         self.applyImpulse(leftVec)
 
+    def jump(self):
+        self.move_up()
+
     def set_organism(self,organism):
         self.organism = organism
 
