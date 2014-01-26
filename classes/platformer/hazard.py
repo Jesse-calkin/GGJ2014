@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Group
-from pygame.transform import scale
+from pygame.transform import scale, rotate
 from spritesheet_functions import *
 from vector import V2
 
@@ -16,6 +16,9 @@ class Hazard(pygame.sprite.Sprite):
 
     velocity = V2(-1, 0)
 
+    rotates = False
+    current_angle = 0
+
     # Constructor. Can also take color, width, height
     def __init__(self, start_location):
         # Call the parent class (Sprite) constructor - like calling super
@@ -28,15 +31,33 @@ class Hazard(pygame.sprite.Sprite):
         frame = sprite_sheet.getImage(35, 25, 35, 18)
         self.frames.append(frame)
 
-        # Fetch the rectangle object that has the dimensions of the image
-        # self.image = self.frames[0]
+        # TODO: size these hazards based off sprites.
         height = 50
+        width = 100
+
+        start_y = 0
+        start_x = 0
+
+        if start_location == "bottom":
+            start_y = constants.SCREEN_HEIGHT - height
+            start_x = constants.SCREEN_WIDTH
+
+        elif start_location == "bottom_rotate":
+            start_y = constants.SCREEN_HEIGHT - height
+            start_x = constants.SCREEN_WIDTH - 75
+            self.rotates = True
+
         start_y = 0 if start_location == "top" else constants.SCREEN_HEIGHT - height
-        self.rect = pygame.Rect(constants.SCREEN_WIDTH, start_y, 400, height)
-        self.image = scale(self.frames[0], [self.rect.w, self.rect.h])
+        self.rect = pygame.Rect(start_x, start_y, width, height)
+        self.root_image = scale(self.frames[0], [self.rect.w, self.rect.h])
+        self.image = self.root_image
 
     def update(self, scroll_speed, delta_time):
         self.rect.x += scroll_speed * self.velocity.x * delta_time
+
+        if self.rotates:
+            self.current_angle += 1
+            self.image = rotate(self.root_image, self.current_angle)
 
         if self.rect.right < 0:
             self.kill()

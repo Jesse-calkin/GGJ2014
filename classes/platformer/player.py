@@ -67,7 +67,7 @@ class Player(pygame.sprite.Sprite):
 
     def animate(self):
         if self.image == self.frames[0]:
-            self.image = self.frames[1]
+            self.image = self.frames[0]
         else:
             self.image = self.frames[0]
 

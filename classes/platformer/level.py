@@ -111,11 +111,11 @@ class Level(object):
             cls._dragon_level.gravity = pygame.math.Vector2(0, 1)
             cls._dragon_level.target_score = 25
             cls._dragon_level.has_blocks = True
-            cls._dragon_level.hazard_start_location = 'top'
+            cls._dragon_level.hazard_start_location = 'bottom_rotate'
             cls._dragon_level.move_sound_id = "dragon_move_sound_id"
             cls._dragon_level.background_filepath = 'resources/backgrounds/aerial.jpg'
             cls._dragon_level.foreground_filepath = 'resources/backgrounds/cloudforeground.png'
-            cls._dragon_level.player_sprite_filepath='resources/sprites/SpriteTest.png'
+            cls._dragon_level.player_sprite_filepath='resources/sprites/Proto.png'
             cls._dragon_level.hazard_filepath = 'resources/sprites/pac.png'
-            cls._dragon_level.player_textmap_filepath='resources/sprites/SpriteTest.json'
+            cls._dragon_level.player_textmap_filepath='resources/sprites/Proto.json'
         return cls._dragon_level
