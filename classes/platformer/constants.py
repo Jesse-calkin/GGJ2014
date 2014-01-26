@@ -33,6 +33,12 @@ sound_tuple_amoeba_die = (sound_id_amoeba_die, "resources/sounds/ameoba_move_2.w
 sound_id_fish_die = "fish_die"
 sound_tuple_fish_die = (sound_id_fish_die, "resources/sounds/ameoba_move_2.wav", 3)
 
+sound_id_dinosaur_die = "dinosaur_die"
+sound_tuple_dinosaur_die = (sound_id_dinosaur_die, "resources/sounds/ameoba_move_2.wav", 3)
+
+sound_id_dragon_die = "dragon_die"
+sound_tuple_dragon_die = (sound_id_dragon_die, "resources/sounds/ameoba_move_2.wav", 3)
+
 # Move sounds
 sound_id_amoeba_move = "amoeba_move"
 sound_tuple_amoeba_move = (sound_id_amoeba_move, "resources/sounds/ameoba_move_2.wav", 4)
@@ -42,5 +48,8 @@ sound_tuple_fish_move = (sound_id_fish_move, "resources/sounds/ameoba_move_2.wav
 
 sound_id_dinosaur_move = "dinosaur_move"
 sound_tuple_dinosaur_move = (sound_id_dinosaur_move, "resources/sounds/ameoba_move_2.wav", 4)
+
+sound_id_dragon_move = "dragon_move"
+sound_tuple_dragon_move = (sound_id_dragon_move, "resources/sounds/ameoba_move_2.wav", 4)
 
 all_sounds_to_load = [sound_tuple_eat, sound_tuple_evolve, sound_tuple_amoeba_die, sound_tuple_fish_die, sound_tuple_amoeba_move, sound_tuple_fish_move, sound_tuple_dinosaur_move]
