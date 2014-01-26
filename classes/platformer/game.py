@@ -44,12 +44,17 @@ class Game(object):
 
     bg = ParallaxSurface(pygame.RLEACCEL)
 
+    block_mgr = None
+
     def update_background_images_for_current_level(self):
         Game.bg.add(self.level.background_filepath, 5)
         Game.bg.add(self.level.foreground_filepath, 2)
 
     def update_player_for_current_level(self):
         pass
+
+    def update_blocks_for_current_level(self):
+        self.block_mgr = BlockManager() if self.level.has_blocks else None
 
     def should_transition(self):
         if self.level_score >= self.level.target_score:
@@ -73,6 +78,7 @@ class Game(object):
     def update_for_current_level(self):
         self.update_background_images_for_current_level()
         self.update_player_for_current_level()
+        self.update_blocks_for_current_level()
 
     def toggle_fullscreen(self):
         self.paused = True
@@ -102,8 +108,6 @@ class Game(object):
         enemy_group.add(enemy)
 
         powerup_mgr = PowerupManager()
-
-        block_mgr = BlockManager()
 
         """background stuff"""
         speed = 5
@@ -169,7 +173,8 @@ class Game(object):
                 Game.bg.scroll(speed*self.world_speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
-                block_mgr.update(self.world_speed, delta_time)
+                if self.block_mgr:
+                    self.block_mgr.update(self.world_speed, delta_time)
                 powerup_mgr.update(self.world_speed, delta_time)
 
             powerup = pygame.sprite.spritecollideany(player, powerup_mgr.group)
@@ -182,18 +187,27 @@ class Game(object):
                 if self.should_transition():
                     self.transition_to_next_level()
 
-            block = pygame.sprite.spritecollideany(player, block_mgr.obstacle_group)
-            if block:
-                player.rect.bottom = block.rect.top
+            if self.block_mgr:
+                block = pygame.sprite.spritecollideany(
+                    player, self.block_mgr.obstacle_group)
+
+                if block:
+                    player.rect.bottom = block.rect.top
+                    player.on_ground = True
+                    print 'on ground'
+                    player.impulse.y = 0
+            else:
+                # TODO(caleb): Remove this once player is properly initialized.
+                # Must set player to on ground when there are no blocks, otherwise
+                # we are stuck falling.
                 player.on_ground = True
-                print 'on ground'
-                player.impulse.y = 0
 
 
             # Drawing operations
             Game.bg.draw(screen)
             player_group.draw(screen)
-            block_mgr.on_draw(screen)
+            if self.block_mgr:
+                self.block_mgr.on_draw(screen)
             enemy_group.draw(screen)
             powerup_mgr.on_draw(screen)
             pygame.display.flip()
