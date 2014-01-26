@@ -51,9 +51,17 @@ class Game(object):
         else:
             return False
 
+    def reached_the_end(self):
+        self.paused = True
+
     def transition_to_next_level(self):
         self.level_score = 0
-        pass
+
+        next_level = self.level.next_level()
+        if next_level:
+            self.level = next_level
+        else:
+            self.reached_the_end()
 
     def toggle_fullscreen(self):
         self.paused = True
@@ -181,7 +189,7 @@ class Game(object):
             enemy_group.draw(screen)
             powerup_mgr.on_draw(screen)
             pygame.display.flip()
-            caption = 'FPS: %s | SCORE: %s | TRANSITION? %s' %(str(clock.get_fps()).split('.')[0], str(self.total_score), str(self.should_transition()))
+            caption = 'FPS: %s | LEVEL SCORE: %s | TOTAL SCORE: %s | TRANSITION? %s' %(str(clock.get_fps()).split('.')[0], str(self.level_score), self.total_score, str(self.should_transition()))
             pygame.display.set_caption(caption)
 
 if __name__ == '__main__':
