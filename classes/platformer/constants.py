@@ -24,7 +24,7 @@ sound_id_walk = "walk"
 sound_tuple_walk = (sound_id_walk, "resources/sounds/swish.ogg", 1)
 
 sound_id_eat = "eat"
-sound_tuple_eat = (sound_id_eat, "resources/sounds/cancel.ogg", 2)
+sound_tuple_eat = (sound_id_eat, "resources/sounds/chomp.wav", 2)
 
 sound_id_evolve = "evolve"
-sound_tuple_evolve = (sound_id_evolve, "resources/sounds/time_to_evolve.WAV", 3)
+sound_tuple_evolve = (sound_id_evolve, "resources/sounds/evolve.wav", 3)
