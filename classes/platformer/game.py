@@ -42,6 +42,9 @@ class Game(object):
 
     level = Level.first_level()
 
+    def update_background_images(self):
+        pass
+
     def should_transition(self):
         if self.branch_scores[0] >= self.level.powerups_goal:
             return True,1
