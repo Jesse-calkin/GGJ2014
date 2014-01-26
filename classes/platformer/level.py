@@ -1,17 +1,33 @@
 import pygame
 
 class Level(object):
-    # Gameplay
-    gravity = pygame.math.Vector2(0, 0)
-    powerups_goal = 1
+    def __init__(self):
+        super(Level, self).__init__()
 
-    # Images
+        # Gameplay
+        self.gravity = pygame.math.Vector2(0, 0)
+        self.powerups_goal = 1
 
-    # Sounds
-    move_sound_id = None
-    move_sound_filename = "../../resources/sounds/swish.ogg"
+        # Images
 
-    # Level progression.
+        # Sounds
+        self.move_sound_id = None
+        self.move_sound_filename = "../../resources/sounds/swish.ogg"
+
+    # Level progression
+
+    def first_level():
+        all_levels = Level.all_levels()
+        first_level = all_levels[0]
+        return first_level
+
+    def last_level():
+        all_levels = Level.all_levels()
+        number_of_levels = len(all_levels)
+        last_level_index = number_of_levels - 1
+        last_level = all_levels[last_level_index]
+        return last_level
+
     def next_level(self):
         next_level = None
 
@@ -33,46 +49,42 @@ class Level(object):
         all_levels = [Level.amoeba_level(), Level.fish_level(), Level.dinosaur_level(), Level.dragon_level()]
         return all_levels
 
+    _amoeba_level = None
     @classmethod
     def amoeba_level(cls):
-        amoeba_level = Level()
+        if (cls._amoeba_level == None):
+            cls._amoeba_level = Level()
+            cls._amoeba_level.gravity = pygame.math.Vector2(0, 0)
+            cls._amoeba_level.powerups_goal = 5
+            cls._amoeba_level.move_sound_id = "amoeba_move_sound_id"
+        return cls._amoeba_level
 
-        amoeba_level.gravity = pygame.math.Vector2(0, 0)
-        amoeba_level.powerups_goal = 5
-
-        amoeba_level.move_sound_id = "amoeba_move_sound_id"
-
-        return amoeba_level
-
+    _fish_level = None
     @classmethod
     def fish_level(cls):
-        fish_level = Level()
+        if (cls._fish_level == None):
+            cls._fish_level = Level()
+            cls._fish_level.gravity = pygame.math.Vector2(0, -1)
+            cls._fish_level.powerups_goal = 10
+            cls._fish_level.move_sound_id = "fish_move_sound_id"
+        return cls._fish_level
 
-        fish_level.gravity = pygame.math.Vector2(0, -1)
-        fish_level.powerups_goal = 10
-
-        fish_level.move_sound_id = "fish_move_sound_id"
-
-        return fish_level
-
+    _dinosaur_level = None
     @classmethod
     def dinosaur_level(cls):
-        dinosaur_level = Level()
+        if (cls._dinosaur_level == None):
+            cls._dinosaur_level = Level()
+            cls._dinosaur_level.gravity = pygame.math.Vector2(0, 3.5)
+            cls._dinosaur_level.powerups_goal = 15
+            cls._dinosaur_level.move_sound_id = "dinosaur_move_sound_id"
+        return cls._dinosaur_level
 
-        dinosaur_level.gravity = pygame.math.Vector2(0, 3.5)
-        dinosaur_level.powerups_goal = 15
-
-        dinosaur_level.move_sound_id = "dinosaur_move_sound_id"
-
-        return dinosaur_level
-
+    _dragon_level = None
     @classmethod
     def dragon_level(cls):
-        dragon_level = Level()
-
-        dragon_level.gravity = pygame.math.Vector2(0, 1)
-        dragon_level.powerups_goal = 20
-
-        dragon_level.move_sound_id = "dragon_move_sound_id"
-
-        return dragon_level
+        if (cls._dragon_level == None):
+            cls._dragon_level = Level()
+            cls._dragon_level.gravity = pygame.math.Vector2(0, 1)
+            cls._dragon_level.powerups_goal = 20
+            cls._dragon_level.move_sound_id = "dragon_move_sound_id"
+        return cls._dragon_level
