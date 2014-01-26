@@ -36,14 +36,15 @@ class BlockManager(object):
 
     MAX_QUEUE_SIZE = 6
 
-    MAX_GAP_X = 100
+    MAX_GAP_X = 300
+    MIN_GAP_X = 100
     MAX_GAP_Y = 15
 
     MIN_WIDTH = 150
-    MIN_HEIGHT = 60
+    MIN_HEIGHT = 20
 
     MAX_WIDTH = 300
-    MAX_HEIGHT = 50
+    MAX_HEIGHT = 20
 
     start_position = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     next_position = [0, 0]
@@ -74,15 +75,15 @@ class BlockManager(object):
         block = self.queue.get()
 
         block.rect.w = width
-        block.rect.h = height
+        block.rect.h = 20
         block.rect.x = position[0]
-        block.rect.y = position[1] - height
+        block.rect.y = constants.SCREEN_HEIGHT - 20
 
         block.image = scale(block.image, [block.rect.w, block.rect.h])
 
         self.queue.put(block)
 
-        x_gap = random.randint(0, self.MAX_GAP_X)
+        x_gap = random.randint(self.MIN_GAP_X, self.MAX_GAP_X)
         y_gap = random.randint(0, self.MAX_GAP_Y)
 
         self.next_position[0] += x_gap + width
