@@ -28,6 +28,24 @@ SPACE_KEY = pygame.K_SPACE
 JUMP_KEY = pygame.K_a
 
 class Game(object):
+    branch_scores =[0,0]
+    total_score = 0
+    evolv_threshold = 10
+
+    def should_transition(self):
+        if self.branch_scores[0] >= self.evolv_threshold:
+            return True,1
+        elif self.branch_scores[1] >= self.evolv_threshold:
+            return True,2
+
+    def update_scores(self, score_type):
+        # pass in a powerup.score_type
+        if score_type==1:
+            self.branch_scores[0]+=1
+        if score_type==2:
+            self.branch_scores[1]+=1
+        self.total_score += 1
+
     def main(self, screen):
         global delta_time
 
@@ -46,10 +64,7 @@ class Game(object):
         enemy_group = pygame.sprite.Group()
         enemy_group.add(enemy)
 
-        powerup = Powerup()
-        powerup_group = pygame.sprite.Group()
-        powerup_group.add(powerup)
-
+        powerup_mgr = PowerupManager()
 
         block_mgr = BlockManager()
 
@@ -83,12 +98,14 @@ class Game(object):
                         running = False
                     if event.key == SPACE_KEY:
                         paused = not paused
-                    # Do not send these events if we are paused 
+                    # Do not send these events if we are paused
                     if not paused:
                         if event.key == UP_KEY:
                             player.move_up()
+                            self.update_scores(2)
                         if event.key == DOWN_KEY:
                             player.move_down()
+                            self.update_scores(1)
                         if event.key == RIGHT_KEY:
                             player.move_right()
                         if event.key == LEFT_KEY:
@@ -102,8 +119,8 @@ class Game(object):
                 bg.scroll(speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
-                powerup_group.update(delta_time)
                 block_mgr.update(-80.0, delta_time)
+                powerup_mgr.update(-80.0, delta_time)
 
             # Drawing operations
             #screen.fill(bgcolor)
@@ -111,10 +128,10 @@ class Game(object):
             player_group.draw(screen)
             block_mgr.on_draw(screen)
             enemy_group.draw(screen)
-            powerup_group.draw(screen)
+            powerup_mgr.on_draw(screen)
             pygame.display.flip()
-
-            pygame.display.set_caption(str(clock.get_fps()))
+            caption = 'FPS: %s | SCORE: %s | TRANSITION? %s' %(str(clock.get_fps()).split('.')[0], str(self.total_score), str(self.should_transition()))
+            pygame.display.set_caption(caption)
 
 if __name__ == '__main__':
     pygame.init()
