@@ -1,20 +1,25 @@
 import pygame
+from pygame.sprite import Group
 from spritesheet_functions import *
 from vector import V2
+
+import constants
+
+import Queue
+import random
+
 """
 Powerup class
 """
-
-
 class Powerup(pygame.sprite.Sprite):
     """
     Initialize and set default vectors
     """
-    position = V2(900,400)
     impulse = V2(-60,0)
 
-    class branch_type:
-        _none, up, down = range(3)
+    POWERUP_TYPE_UP = 'UP'
+    POWERUP_TYPE_DOWN = 'DOWN'
+    POWERUP_TYPES = [POWERUP_TYPE_UP, POWERUP_TYPE_DOWN]
 
     timer = 0
     # holding our animation frames for now
@@ -25,7 +30,6 @@ class Powerup(pygame.sprite.Sprite):
         # Call the parent class (Sprite) constructor - like calling super
         pygame.sprite.Sprite.__init__(self)
 
-
         sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
         frame = sprite_sheet.getImage(88, 218, 82, 83)
         self.frames.append(frame)
@@ -34,38 +38,16 @@ class Powerup(pygame.sprite.Sprite):
         self.image = self.frames[0]
         self.rect = self.frames[0].get_rect()
 
-        self.rect.x = self.position.x
-        self.rect.y = self.position.y
+    def update(self, scroll_speed, delta_time):
+        self.rect.x += scroll_speed * delta_time
 
-    def applyImpulse(self,vec2):
-        impulseToApply = vec2
-        if not impulseToApply.is_normalized():
-            impulseToApply = impulseToApply.normalize()
-            print 'applying impulse', impulseToApply
-        self.impulse.x += impulseToApply.x
-        self.impulse.y += impulseToApply.y
+        if self.rect.right < 0:
+            self.mgr.recycle()
+            return
 
-    def move_up(self):
-        upVec = pygame.math.Vector2(0,-1)
-        self.applyImpulse(upVec)
-
-    def move_down(self):
-        downVec = pygame.math.Vector2(0,1)
-        self.applyImpulse(downVec)
-
-    def move_right(self):
-        rightVec = pygame.math.Vector2(1,0)
-        self.applyImpulse(rightVec)
-
-    def move_left(self):
-        leftVec = pygame.math.Vector2(-1,0)
-        self.applyImpulse(leftVec)
-
-    def set_organism(self,organism):
-        self.organism = organism
-
-    def set_branch_type(self,branch_type):
-        self.branch_type = branch_type
+        if self.timer > .5:
+            self.animate()
+            self.timer = 0
 
     def animate(self):
         pass
@@ -74,11 +56,54 @@ class Powerup(pygame.sprite.Sprite):
         # else:
         #     self.image = self.frames[0]
 
-    def update(self,dt):
-        self.rect.x += self.impulse.x * dt
-        self.rect.y += self.impulse.y * dt
-        self.timer += dt
 
-        if self.timer > .5:
-            self.animate()
-            self.timer = 0
+class PowerupManager(object):
+
+    MAX_QUEUE_SIZE = 5
+
+    MIN_GAP_X = 200
+    MAX_GAP_X = 400
+
+    MAX_GAP_Y = constants.SCREEN_HEIGHT
+
+    last_position = [constants.SCREEN_WIDTH + 100, 0]
+
+    group = Group()
+
+    def __init__(self):
+        self.queue = Queue.Queue(self.MAX_QUEUE_SIZE)
+
+        for _ in range(self.MAX_QUEUE_SIZE):
+            powerup = Powerup()
+            powerup.mgr = self
+            self.group.add(powerup)
+            self.queue.put(powerup)
+
+        for _ in range(self.MAX_QUEUE_SIZE):
+            self.recycle()
+
+    def recycle(self):
+        powerup = self.queue.get()
+
+        x_gap = random.randint(self.MIN_GAP_X, self.MAX_GAP_X)
+        y = random.randint(0, self.MAX_GAP_Y)
+
+        if(y + powerup.rect.h > constants.SCREEN_HEIGHT):
+            y = constants.SCREEN_HEIGHT - powerup.rect.h
+
+        powerup.rect.x = self.last_position[0] + x_gap
+        powerup.rect.y = y
+
+        powerup.type = random.choice(Powerup.POWERUP_TYPES)
+
+        self.last_position[0] = powerup.rect.x
+        self.last_position[1] = powerup.rect.y
+
+        self.queue.put(powerup)
+
+    def update(self, speed, delta_time):
+        self.last_position[0] += speed * delta_time
+        self.group.update(speed, delta_time)
+
+    def on_draw(self, surface):
+        self.group.draw(surface)
