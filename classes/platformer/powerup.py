@@ -4,6 +4,7 @@ from spritesheet_functions import *
 from vector import V2
 
 import constants
+from player import Player
 
 import Queue
 import random
@@ -17,8 +18,8 @@ class Powerup(pygame.sprite.Sprite):
     """
     impulse = V2(-60,0)
 
-    POWERUP_TYPE_UP = 'UP'
-    POWERUP_TYPE_DOWN = 'DOWN'
+    POWERUP_TYPE_UP = 1
+    POWERUP_TYPE_DOWN = 2
     POWERUP_TYPES = [POWERUP_TYPE_UP, POWERUP_TYPE_DOWN]
 
     powerup_type = None
@@ -44,7 +45,7 @@ class Powerup(pygame.sprite.Sprite):
         self.rect.x += scroll_speed * delta_time
 
         if self.rect.right < 0:
-            self.mgr.recycle()
+            self.mgr.recycle(self)
             return
 
         if self.timer > .5:
@@ -58,10 +59,14 @@ class Powerup(pygame.sprite.Sprite):
         # else:
         #     self.image = self.frames[0]
 
+    def collided(self, collided_with):
+        if isinstance(collided_with, Player):
+            #TODO animate this or play a noise
+            self.mgr.recycle(self)
 
 class PowerupManager(object):
 
-    MAX_QUEUE_SIZE = 5
+    MAX_ITEMS = 5
 
     MIN_GAP_X = 200
     MAX_GAP_X = 400
@@ -73,20 +78,16 @@ class PowerupManager(object):
     group = Group()
 
     def __init__(self):
-        self.queue = Queue.Queue(self.MAX_QUEUE_SIZE)
+        self.list = []
 
-        for _ in range(self.MAX_QUEUE_SIZE):
+        for _ in range(self.MAX_ITEMS):
             powerup = Powerup()
             powerup.mgr = self
             self.group.add(powerup)
-            self.queue.put(powerup)
+            self.list.append(powerup)
+            self.recycle(powerup)
 
-        for _ in range(self.MAX_QUEUE_SIZE):
-            self.recycle()
-
-    def recycle(self):
-        powerup = self.queue.get()
-
+    def recycle(self, powerup):
         x_gap = random.randint(self.MIN_GAP_X, self.MAX_GAP_X)
         y = random.randint(0, self.MAX_GAP_Y)
 
@@ -100,8 +101,6 @@ class PowerupManager(object):
 
         self.last_position[0] = powerup.rect.x
         self.last_position[1] = powerup.rect.y
-
-        self.queue.put(powerup)
 
     def update(self, speed, delta_time):
         self.last_position[0] += speed * delta_time
