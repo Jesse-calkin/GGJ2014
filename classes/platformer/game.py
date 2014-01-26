@@ -164,14 +164,14 @@ class Game(object):
                         elif event.type == pygame.KEYUP and event.key == DOWN_KEY:
                             is_moving_down = False
 
-                        if event.key == FULLSCREEN_KEY:
+                        if event.type == pygame.KEYDOWN and event.key == FULLSCREEN_KEY:
                             self.toggle_fullscreen()
                         # if event.key == RIGHT_KEY:
                         #     player.move_right()
                         # if event.key == LEFT_KEY:
                         #     player.move_left()
-                        # if event.key == JUMP_KEY and player.on_ground:
-                        #     player.jump()
+                        #if event.key == JUMP_KEY:
+                         #   self.player.jump(delta_timea)
             if is_moving_up:
                 self.player.move_up()
             elif is_moving_down:
