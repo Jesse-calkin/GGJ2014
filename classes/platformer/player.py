@@ -47,6 +47,7 @@ class Player(pygame.sprite.Sprite):
         if not self.is_jumping and self.level.gravity.y > 0:
             self.is_jumping = True
             self.applyImpulse(self.jumpulse)
+            Sound.play_sound_for_sound_id(self.level.jump_sound_id)
             print 'jumpulse'
 
     def move_up(self):

@@ -16,6 +16,9 @@ class Level(object):
         self.foreground_filepath = "resources/backgrounds/primordial.jpg"
         self.hazard_filepath = None
 
+        # Sounds
+        self.jump_sound_id = sound_id_jump
+
     # Level progression
 
     @classmethod
