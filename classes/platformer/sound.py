@@ -11,14 +11,18 @@ class Sound(object):
         for sound_tuple_to_load in sounds:
             sound_id = sound_tuple_to_load[cls.sound_tuple_index_sound_id]
             sound_filename = sound_tuple_to_load[cls.sound_tuple_index_sound_filename]
+            sound_channel_id = sound_tuple_to_load[cls.sound_tuple_index_channel_id]
             sound = pygame.mixer.Sound(sound_filename)
 
-            cls.loaded_sounds[sound_id] = (sound_id, sound_filename, sound)
+            cls.loaded_sounds[sound_id] = (sound_id, sound_filename, sound_channel_id, sound)
 
     @classmethod
     def play_sound_for_sound_id(cls, sound_id):
-        sound = cls.sound_for_sound_id(sound_id)
-        sound.play()
+        sound_tuple = cls.sound_tuple_for_sound_id(sound_id)
+        sound = sound_tuple[cls.sound_tuple_index_sound]
+        channel_id = sound_tuple[cls.sound_tuple_index_channel_id]
+        channel = pygame.mixer.Channel(channel_id)
+        channel.play(sound)
 
     @classmethod
     def stop_sound_for_sound_id(cls, sound_id):
@@ -26,13 +30,14 @@ class Sound(object):
         sound.stop()
 
     # keys - sound IDs
-    # values - sound tuples of the format (sound ID, sound filename, Sound object)
+    # values - sound tuples of the format (sound ID, sound filename, Sound object, channel ID)
     loaded_sounds = {}
 
     # sound tuple value indices
     sound_tuple_index_sound_id       = 0
     sound_tuple_index_sound_filename = 1
-    sound_tuple_index_sound          = 2
+    sound_tuple_index_channel_id     = 2
+    sound_tuple_index_sound          = 3
 
     @classmethod
     def start(cls):
