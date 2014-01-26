@@ -56,6 +56,10 @@ class Game(object):
     transition_start_time = 0
     transition_duration = 1500  # ms
 
+    def die(self):
+        first_level = Level.first_level()
+        self.transition_to_level(first_level)
+
     def update_background_images_for_current_level(self):
         Game.bg.remove()
         Game.bg.add(self.level.background_filepath, 5)
@@ -83,15 +87,17 @@ class Game(object):
     def reached_the_end(self):
         self.paused = True
 
-    def transition_to_next_level(self):
+    def transition_to_level(self, level):
         self.level_score = 0
+        self.start_transition()
+        self.level = level
+        self.update_for_current_level()
+        Sound.play_sound_for_sound_id(sound_id_evolve)
 
+    def transition_to_next_level(self):
         next_level = self.level.next_level()
         if next_level:
-            self.start_transition()
-            self.level = next_level
-            self.update_for_current_level()
-            Sound.play_sound_for_sound_id(sound_id_evolve)
+            self.transition_to_level(next_level)
         else:
             self.reached_the_end()
 
@@ -248,7 +254,7 @@ class Game(object):
                     self.player.impulse.y = 0
 
             if self.hazard and pygame.sprite.collide_rect(self.player, self.hazard):
-                print "Player hit hazard!"
+                self.die()
 
             # Drawing operations
             Game.bg.draw(screen)
