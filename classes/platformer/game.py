@@ -9,6 +9,7 @@ from powerup import *
 from blocks import BlockManager
 from parallax import *
 from sound import *
+from level import *
 
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
@@ -38,10 +39,12 @@ class Game(object):
     speed_increase = 0.002
     last_speed_increase = 0  # last time the speed was increased
 
+    level = Level.first_level()
+
     def should_transition(self):
-        if self.branch_scores[0] >= self.evolv_threshold:
+        if self.branch_scores[0] >= self.level.powerups_goal:
             return True,1
-        elif self.branch_scores[1] >= self.evolv_threshold:
+        elif self.branch_scores[1] >= self.level.powerups_goal:
             return True,2
 
     def update_scores(self, score_type):
