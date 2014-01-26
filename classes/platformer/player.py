@@ -81,6 +81,9 @@ class Player(pygame.sprite.Sprite):
         leftVec = pygame.math.Vector2(-1,0)
         self.applyImpulse(leftVec)
 
+    def jump(self):
+        self.move_up()
+
     def set_organism(self,organism):
         self.organism = organism
 
@@ -93,10 +96,24 @@ class Player(pygame.sprite.Sprite):
     def update(self,dt):
         self.rect.x += self.impulse.x
         self.rect.y += self.impulse.y
+
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+            self.impulse.x = 0
+        if self.rect.x < 0:
+            self.rect.x = 0
+            self.impulse.x = 0
+        if self.rect.bottom > SCREEN_HEIGHT:
+            self.rect.bottom = SCREEN_HEIGHT
+            self.impulse.y = 0
+        if self.rect.y < 0:
+            self.rect.y = 0
+            self.impulse.y = 0
+
         self.timer += dt
 
-        if not self.on_ground:
-            self.apply_gravity()
+        # if not self.on_ground:
+        #     self.apply_gravity()
 
         if self.timer > .5:
             self.animate()

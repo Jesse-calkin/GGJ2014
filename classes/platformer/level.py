@@ -11,10 +11,26 @@ class Level(object):
     move_sound_id = None
     move_sound_filename = "../../resources/sounds/swish.ogg"
 
+    # Level progression.
+    def next_level(self):
+        next_level = None
+
+        all_levels = Level.all_levels()
+        number_of_levels = len(all_levels)
+
+        current_level_index = all_levels.index(self)
+        next_level_index = current_level_index + 1
+
+        if (next_level_index < number_of_levels):
+            next_level = all_levels[next_level_index]
+
+        return next_level
+
     # Factories
+
     @classmethod
     def all_levels(cls):
-        all_levels = [cls.amoeba_level, cls.fish_level, cls.dinosaur_level, cls.dragon_level]
+        all_levels = [Level.amoeba_level(), Level.fish_level(), Level.dinosaur_level(), Level.dragon_level()]
         return all_levels
 
     @classmethod
