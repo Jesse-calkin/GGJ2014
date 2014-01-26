@@ -68,6 +68,7 @@ class Game(object):
     def update_player_for_current_level(self, player):
         player.level = self.level
         player.update_sprite(self.level.player_sprite_filepath, self.level.player_textmap_filepath)
+        player.update_jumpulse()
         if self.level.has_blocks:
             player.on_ground = True
 
