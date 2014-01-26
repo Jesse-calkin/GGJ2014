@@ -4,7 +4,6 @@ import os
 from random import choice
 from constants import *
 from player import *
-from enemy import *
 from powerup import *
 from blocks import BlockManager
 from parallax import *
@@ -114,10 +113,6 @@ class Game(object):
         player_group = pygame.sprite.Group()
         player_group.add(self.player)
 
-        enemy = Enemy()
-        enemy_group = pygame.sprite.Group()
-        enemy_group.add(enemy)
-
         powerup_mgr = PowerupManager()
 
         speed = 5
@@ -184,7 +179,7 @@ class Game(object):
                 # Update operaions
                 Game.bg.scroll(speed*self.world_speed)
                 self.player.update(delta_time)
-                enemy_group.update(delta_time)
+
                 if self.block_mgr:
                     self.block_mgr.update(self.world_speed, delta_time)
                 powerup_mgr.update(self.world_speed, delta_time)
@@ -224,7 +219,7 @@ class Game(object):
                 self.block_mgr.on_draw(screen)
             if self.hazard:
                 self.hazard.on_draw(screen)
-            enemy_group.draw(screen)
+
             powerup_mgr.on_draw(screen)
             pygame.display.flip()
             caption = 'FPS: %s | LEVEL SCORE: %s | TOTAL SCORE: %s | TRANSITION? %s' %(str(clock.get_fps()).split('.')[0], str(self.level_score), self.total_score, str(self.should_transition()))
