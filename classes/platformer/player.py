@@ -1,4 +1,5 @@
 import pygame
+import json
 from vector import V2
 from spritesheet_functions import *
 from sound import *
@@ -33,12 +34,16 @@ class Player(pygame.sprite.Sprite):
         # Call the parent class (Sprite) constructor - like calling super
         pygame.sprite.Sprite.__init__(self)
 
+        sprite_sheet = SpriteSheet("../../resources/sprites/SpriteTest.png")
 
-        sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
-        frame = sprite_sheet.getImage(105, 108, 62, 92)
-        self.frames.append(frame)
-        frame = sprite_sheet.getImage(171, 108, 84, 92)
-        self.frames.append(frame)
+        with open('../../resources/sprites/SpriteTest.json') as tex_map:
+            for i in json.load(tex_map)['frames']:
+                self.frames.append(sprite_sheet.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h']))
+
+        # frame = sprite_sheet.getImage(105, 108, 62, 92)
+        # self.frames.append(frame)
+        # frame = sprite_sheet.getImage(171, 108, 84, 92)
+        # self.frames.append(frame)
 
         # Fetch the rectangle object that has the dimensions of the image
         self.image = self.frames[0]
