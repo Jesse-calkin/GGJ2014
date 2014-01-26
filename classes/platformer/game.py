@@ -115,6 +115,8 @@ class Game(object):
         sounds = [sound_tuple_walk]
         Sound.load_sounds(sounds)
 
+        self.update_for_current_level()
+
         is_moving_up = False
         is_moving_down = False
 
