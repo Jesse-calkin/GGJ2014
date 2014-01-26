@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
     on_ground = False
     level = None
     is_jumping = False
-    jumpulse = (0,5)
+    jumpulse = V2(0,-50)
     jumptimer = 0
 
     timer = 0
@@ -48,12 +48,11 @@ class Player(pygame.sprite.Sprite):
     def apply_gravity(self):
         self.applyImpulse(self.level.gravity)
 
-    def jump(self,dt):
-        if not self.is_jumping:
+    def jump(self):
+        if not self.is_jumping and self.level.gravity.y>0:
             self.is_jumping = True
             self.applyImpulse(self.jumpulse)
-            self.jumptimer += dt
-
+            print 'jump'
 
     def move_up(self):
         upVec = pygame.math.Vector2(0, -3)
@@ -101,8 +100,13 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = 0
             self.impulse.y = 0
 
-        if self.is_jumping and self.jumptimer > .3:
-            self.apply_gravity()
+        if self.is_jumping:
+            if self.jumptimer == 0:
+                self.jumptimer += dt
+            elif self.jumptimer > .4:
+                self.apply_gravity()
+            else:
+                self.jumptimer += dt
         
         if not self.is_jumping:
             self.apply_gravity()
