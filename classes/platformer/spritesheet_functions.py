@@ -43,7 +43,7 @@ class SpriteSheet():
         for i in texture_map['frames']:
             image = self.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h'])
             # scale image down by 1/2
-            image = pygame.transform.scale(image,(image.get_width()/2,image.get_height()/2))
+            image = pygame.transform.scale(image,(image.get_width()/7,image.get_height()/7))
             frames.append(image)
 
         return frames
