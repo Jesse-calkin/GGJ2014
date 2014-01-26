@@ -16,12 +16,14 @@ class Level(object):
 
     # Level progression
 
-    def first_level():
+    @classmethod
+    def first_level(cls):
         all_levels = Level.all_levels()
         first_level = all_levels[0]
         return first_level
 
-    def last_level():
+    @classmethod
+    def last_level(cls):
         all_levels = Level.all_levels()
         number_of_levels = len(all_levels)
         last_level_index = number_of_levels - 1
@@ -88,3 +90,11 @@ class Level(object):
             cls._dragon_level.powerups_goal = 20
             cls._dragon_level.move_sound_id = "dragon_move_sound_id"
         return cls._dragon_level
+
+if __name__ == '__main__':
+    level = Level.first_level()
+    while (True):
+        print(level)
+        level = level.next_level()
+        if (level == None):
+            break
