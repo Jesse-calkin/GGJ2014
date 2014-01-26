@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 from random import choice
 from constants import *
 from player import *
@@ -9,7 +10,7 @@ from blocks import BlockManager
 from parallax import *
 from sound import *
 
-
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 """Base Game
 
