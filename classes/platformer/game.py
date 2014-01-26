@@ -27,12 +27,13 @@ QUIT = pygame.QUIT
 ESC_KEY = pygame.K_ESCAPE
 SPACE_KEY = pygame.K_SPACE
 JUMP_KEY = pygame.K_a
+FULLSCREEN_KEY = pygame.K_f
 
 class Game(object):
     branch_scores =[0,0]
     total_score = 0
     evolv_threshold = 10
-
+    is_fullscreen = False
     world_speed = 1.0  # 1x
     max_speed = 2.0
     speed_increase = 0.002
@@ -51,6 +52,16 @@ class Game(object):
         if score_type==2:
             self.branch_scores[1]+=1
         self.total_score += 1
+    
+    def toggle_fullscreen(self):
+        self.paused = True
+        if not self.is_fullscreen:
+            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.DOUBLEBUF|pygame.FULLSCREEN)
+            self.is_fullscreen = True
+        elif self.is_fullscreen:
+            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.DOUBLEBUF)
+            self.is_fullscreen = False
+        self.paused = False
 
     def main(self, screen):
         global delta_time
@@ -117,6 +128,8 @@ class Game(object):
                         if event.key == DOWN_KEY:
                             player.move_down()
                             self.update_scores(1)
+                        if event.key == FULLSCREEN_KEY:
+                            self.toggle_fullscreen()
                         # if event.key == RIGHT_KEY:
                         #     player.move_right()
                         # if event.key == LEFT_KEY:
