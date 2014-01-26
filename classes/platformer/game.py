@@ -86,6 +86,7 @@ class Game(object):
         if next_level:
             self.level = next_level
             self.update_for_current_level()
+            Sound.play_sound_for_sound_id(sound_id_evolve)
         else:
             self.reached_the_end()
 
@@ -127,7 +128,7 @@ class Game(object):
 
         "sound stuff"
         Sound.start()
-        sounds = [sound_tuple_walk, sound_tuple_eat]
+        sounds = [sound_tuple_walk, sound_tuple_eat, sound_tuple_evolve]
         Sound.load_sounds(sounds)
 
         self.update_for_current_level()
