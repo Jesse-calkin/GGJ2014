@@ -51,6 +51,10 @@ class Game(object):
         else:
             return False
 
+    def transition_to_next_level(self):
+        self.level_score = 0
+        pass
+
     def toggle_fullscreen(self):
         self.paused = True
         if not self.is_fullscreen:
@@ -158,6 +162,8 @@ class Game(object):
                 powerup.collided(player)
                 self.level_score = self.level_score + 1
                 self.total_score = self.total_score + 1
+                if self.should_transition():
+                    self.transition_to_next_level()
 
             block = pygame.sprite.spritecollideany(player, block_mgr.obstacle_group)
             if block:
