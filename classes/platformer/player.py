@@ -66,11 +66,12 @@ class Player(pygame.sprite.Sprite):
         self.organism = organism
 
     def animate(self):
+        print ' %s , %s' %(len(self.frames),self.frame_index)
         if self.frame_index >= len(self.frames)-1:
             self.frame_index = 0
         else:
             self.frame_index += 1
-            self.image = self.frames[self.frame_index]
+        self.image = self.frames[self.frame_index]
 
 
     def update(self, dt):
