@@ -1,4 +1,5 @@
 import pygame
+import pygame._view
 import sys
 import os
 from random import choice
