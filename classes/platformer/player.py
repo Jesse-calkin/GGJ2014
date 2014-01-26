@@ -50,13 +50,13 @@ class Player(pygame.sprite.Sprite):
             print 'jump'
 
     def move_up(self):
-        if self.level.gravity.y >= 1:
+        if self.level.gravity.y == 1:
             upVec = pygame.math.Vector2(0, -3)
             self.applyImpulse(upVec)
             Sound.play_sound_for_sound_id(sound_id_walk)
 
     def move_down(self):
-        if self.level.gravity.y >= 1:
+        if self.level.gravity.y == 1:
             downVec = pygame.math.Vector2(0, 3)
             self.applyImpulse(downVec)
             Sound.play_sound_for_sound_id(sound_id_walk)
