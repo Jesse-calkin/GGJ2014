@@ -50,12 +50,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = self.position.y
 
     def applyImpulse(self,vec2):
-        impulseToApply = vec2
-        if not impulseToApply.is_normalized():
-            impulseToApply = impulseToApply.normalize()
-            print 'applying impulse', impulseToApply
-        self.impulse.x += impulseToApply.x
-        self.impulse.y += impulseToApply.y
+        self.impulse.x += vec2.x
+        self.impulse.y += vec2.y
         Sound.play_sound_for_sound_id(sound_id_walk)
 
     def apply_gravity(self):
@@ -63,11 +59,11 @@ class Player(pygame.sprite.Sprite):
         self.applyImpulse(gravity)
 
     def move_up(self):
-        upVec = pygame.math.Vector2(0,-1)
+        upVec = pygame.math.Vector2(0, -3)
         self.applyImpulse(upVec)
 
     def move_down(self):
-        downVec = pygame.math.Vector2(0,1)
+        downVec = pygame.math.Vector2(0, 3)
         self.applyImpulse(downVec)
 
     def move_right(self):
@@ -88,8 +84,8 @@ class Player(pygame.sprite.Sprite):
             self.image = self.frames[0]
 
     def update(self,dt):
-        self.rect.x += self.impulse.x
-        self.rect.y += self.impulse.y
+        self.rect.x += self.impulse.x * dt
+        self.rect.y += self.impulse.y * dt
 
         if self.rect.right > SCREEN_WIDTH:
             self.rect.right = SCREEN_WIDTH
