@@ -45,6 +45,9 @@ class Game(object):
     def update_background_images(self):
         pass
 
+    def update_player_for_current_level():
+        pass
+
     def should_transition(self):
         if self.level_score >= self.level.target_score:
             return True
@@ -66,6 +69,7 @@ class Game(object):
 
     def update_for_current_level():
         self.update_background_images()
+        self.update_player_for_current_level()
 
     def toggle_fullscreen(self):
         self.paused = True
