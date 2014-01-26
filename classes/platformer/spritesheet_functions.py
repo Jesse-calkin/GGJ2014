@@ -3,6 +3,7 @@
 Taken from the spritesheet tutorial at http://programarcadegames.com/python_examples/sprite_sheets/
 """
 import pygame
+import json
 from constants import *
 
 
@@ -10,11 +11,12 @@ class SpriteSheet():
     """ Class used to grab images out of a sprite sheet. """
     # This points to our sprite sheet image
     sprite_sheet = None
+    texture_map = None
+
+    resource_path = '../../resources/sprites/'
 
     def __init__(self, file_name):
         """ Constructor. Pass in the file name of the sprite sheet. """
-
-        # Load the sprite sheet.
         self.sprite_sheet = pygame.image.load(file_name).convert()
 
     def getImage(self, x, y, width, height):
@@ -31,5 +33,17 @@ class SpriteSheet():
         # Assuming black works as the transparent color
         image.set_colorkey(BLACK)
 
-        # Return the image
         return image
+
+    def get_frames_from_texmap(self,file_name):
+        frames = []
+        with open(file_name) as infile:
+            texture_map = json.load(infile)
+
+        for i in texture_map['frames']:
+            image = self.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h'])
+            # scale image down by 1/2
+            image = pygame.transform.scale(image,(image.get_width()/2,image.get_height()/2))
+            frames.append(image)
+
+        return frames

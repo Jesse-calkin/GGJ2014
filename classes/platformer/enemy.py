@@ -1,4 +1,5 @@
 import pygame
+import constants
 from spritesheet_functions import *
 from vector import V2
 

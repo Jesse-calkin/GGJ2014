@@ -33,11 +33,12 @@ FULLSCREEN_KEY = pygame.K_f
 class Game(object):
     level_score = 0
     total_score = 0
+    player = None
     evolv_threshold = 10
     is_fullscreen = False
     world_speed = 1.0  # 1x
-    max_speed = 4.0
-    speed_increase = 0.0015
+    max_speed = 2.0
+    speed_increase = 0.002
     last_speed_increase = 0  # last time the speed was increased
 
     level = Level.first_level()
@@ -50,8 +51,8 @@ class Game(object):
         Game.bg.add(self.level.background_filepath, 5)
         Game.bg.add(self.level.foreground_filepath, 2)
 
-    def update_player_for_current_level(self):
-        pass
+    def update_player_for_current_level(self, player):
+        player.level = self.level
 
     def update_blocks_for_current_level(self):
         self.block_mgr = BlockManager() if self.level.has_blocks else None
@@ -77,7 +78,7 @@ class Game(object):
 
     def update_for_current_level(self):
         self.update_background_images_for_current_level()
-        self.update_player_for_current_level()
+        self.update_player_for_current_level(self.player)
         self.update_blocks_for_current_level()
 
     def toggle_fullscreen(self):
@@ -99,9 +100,9 @@ class Game(object):
         paused = False
 
         """ sprite stuff """
-        player = Player()
+        self.player = Player()
         player_group = pygame.sprite.Group()
-        player_group.add(player)
+        player_group.add(self.player)
 
         enemy = Enemy()
         enemy_group = pygame.sprite.Group()
@@ -110,6 +111,10 @@ class Game(object):
         powerup_mgr = PowerupManager()
 
         """background stuff"""
+        bg = ParallaxSurface(pygame.RLEACCEL)
+        bg.add('../../resources/backgrounds/testbackground.png', 5)
+        bg.add('../../resources/backgrounds/testforeground.png', 2)
+
         speed = 5
 
         "sound stuff"
@@ -130,7 +135,9 @@ class Game(object):
             ms_since_last_tick = clock.tick(FRAME_RATE)
             delta_time = 1.0 / float(ms_since_last_tick)
 
-            if self.world_speed < self.max_speed:
+            if pygame.time.get_ticks() - self.last_speed_increase > 5000 \
+                and self.world_speed < self.max_speed:
+
                 self.world_speed += self.speed_increase
 
             for event in pygame.event.get():
@@ -163,25 +170,25 @@ class Game(object):
                         # if event.key == JUMP_KEY and player.on_ground:
                         #     player.jump()
             if is_moving_up:
-                player.move_up()
+                self.player.move_up()
             elif is_moving_down:
-                player.move_down()
+                self.player.move_down()
 
             #If we aren't paused, do this stuff
             if not paused:
                 # Update operaions
                 Game.bg.scroll(speed*self.world_speed)
-                player.update(delta_time)
+                self.player.update(delta_time)
                 enemy_group.update(delta_time)
                 if self.block_mgr:
                     self.block_mgr.update(self.world_speed, delta_time)
                 powerup_mgr.update(self.world_speed, delta_time)
 
-            powerup = pygame.sprite.spritecollideany(player, powerup_mgr.group)
+            powerup = pygame.sprite.spritecollideany(self.player, powerup_mgr.group)
             if powerup:
                 print "collided with powerup: %s" % powerup.powerup_type
                 Sound.play_sound_for_sound_id(sound_id_eat)
-                powerup.collided(player)
+                powerup.collided(self.player)
                 self.level_score = self.level_score + 1
                 self.total_score = self.total_score + 1
                 if self.should_transition():
@@ -189,19 +196,18 @@ class Game(object):
 
             if self.block_mgr:
                 block = pygame.sprite.spritecollideany(
-                    player, self.block_mgr.obstacle_group)
+                    self.player, self.block_mgr.obstacle_group)
 
                 if block:
-                    player.rect.bottom = block.rect.top
-                    player.on_ground = True
+                    self.player.rect.bottom = block.rect.top
+                    self.player.on_ground = True
                     print 'on ground'
-                    player.impulse.y = 0
+                    self.player.impulse.y = 0
             else:
                 # TODO(caleb): Remove this once player is properly initialized.
                 # Must set player to on ground when there are no blocks, otherwise
                 # we are stuck falling.
-                player.on_ground = True
-
+                self.player.on_ground = True
 
             # Drawing operations
             Game.bg.draw(screen)
