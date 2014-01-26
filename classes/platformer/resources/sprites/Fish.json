@@ -1,20 +1,44 @@
 {"frames": [
 
 {
-	"filename": "Fish.png",
-	"frame": {"x":2,"y":2,"w":764,"h":903},
+	"filename": "F1.png",
+	"frame": {"x":1064,"y":2,"w":360,"h":446},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":12,"y":0,"w":764,"h":903},
-	"sourceSize": {"w":800,"h":911}
+	"spriteSourceSize": {"x":0,"y":1,"w":360,"h":446},
+	"sourceSize": {"w":360,"h":450}
+},
+{
+	"filename": "F2.png",
+	"frame": {"x":2,"y":2,"w":346,"h":450},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":346,"h":450},
+	"sourceSize": {"w":350,"h":450}
+},
+{
+	"filename": "F3.png",
+	"frame": {"x":350,"y":2,"w":350,"h":448},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":448},
+	"sourceSize": {"w":350,"h":450}
+},
+{
+	"filename": "F4.png",
+	"frame": {"x":702,"y":2,"w":360,"h":446},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":360,"h":446},
+	"sourceSize": {"w":360,"h":450}
 }],
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "Fish.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":1024},
+	"size": {"w":1426,"h":454},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:8625ef3c1c0328a8502081eaaf7884d0:6bd1308cfe9c9207639ca0324e53fa61:24b7027770b0854c0d8c9b03d40a3aa9$"
+	"smartupdate": "$TexturePacker:SmartUpdate:b9724e8e3acf26a0a51f01988bfdb70c:42af6daabf4e422985be8c93504ab554:24b7027770b0854c0d8c9b03d40a3aa9$"
 }
 }

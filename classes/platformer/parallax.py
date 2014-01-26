@@ -29,7 +29,7 @@ class _subsurface:
 class ParallaxSurface:
     '''Class handling parallax scrolling of a series of surfaces'''
     def __init__(self, size, colorkey_flags=0):
-        print "parllaxSurface inited!"
+        # print "parllaxSurface inited!"
         self.colorkey_flags = colorkey_flags
         self.scroller = 0
         self.levels = []
@@ -45,13 +45,14 @@ class ParallaxSurface:
         image = image.convert()
         if len(self.levels) > 0:
             image.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
+            image.set_alpha(80)
         self.levels.append(_subsurface(image, scroll_factor))
 
-    # def add_surface(self, surface, scroll_factor):
-    #     surface = surface.convert()
-    #     if len(self.levels) > 0:
-    #         surface.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
-    #     self.levels.append(_subsurface(surface, scroll_factor))
+    def add_surface(self, surface, scroll_factor):
+        surface = surface.convert()
+        if len(self.levels) > 0:
+            surface.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
+        self.levels.append(_subsurface(surface, scroll_factor))
 
     def remove(self):
         self.levels = []
@@ -63,7 +64,7 @@ class ParallaxSurface:
         s_height = self.size
 
         for lvl in self.levels:
-            lvl.surface.set_alpha(50)
+            # lvl.surface.set_alpha(50)
             surface.blit(lvl.surface, (0, 0),
                         (lvl.scroll, 0, s_width, s_height))
             surface.blit(lvl.surface,
