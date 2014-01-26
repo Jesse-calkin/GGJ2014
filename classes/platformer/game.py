@@ -45,7 +45,7 @@ class Game(object):
     def update_background_images(self):
         pass
 
-    def update_player_for_current_level():
+    def update_player_for_current_level(self):
         pass
 
     def should_transition(self):
@@ -67,7 +67,7 @@ class Game(object):
         else:
             self.reached_the_end()
 
-    def update_for_current_level():
+    def update_for_current_level(self):
         self.update_background_images()
         self.update_player_for_current_level()
 
