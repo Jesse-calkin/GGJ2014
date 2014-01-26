@@ -26,7 +26,6 @@ class _subsurface:
         self.factor = factor
         self.surface = surface
 
-
 class ParallaxSurface:
     '''Class handling parallax scrolling of a series of surfaces'''
     def __init__(self, size, colorkey_flags=0):
@@ -64,6 +63,7 @@ class ParallaxSurface:
         s_height = self.size
 
         for lvl in self.levels:
+            lvl.surface.set_alpha(50)
             surface.blit(lvl.surface, (0, 0),
                         (lvl.scroll, 0, s_width, s_height))
             surface.blit(lvl.surface,
