@@ -9,6 +9,9 @@ from player import Player
 import Queue
 import random
 
+POWERUP_VELOCITY = V2(-60, 0)
+
+
 """
 Powerup class
 """
@@ -16,7 +19,6 @@ class Powerup(pygame.sprite.Sprite):
     """
     Initialize and set default vectors
     """
-    impulse = V2(-60,0)
 
     POWERUP_TYPE_UP = 1
     POWERUP_TYPE_DOWN = 2
@@ -42,7 +44,7 @@ class Powerup(pygame.sprite.Sprite):
         self.rect = self.frames[0].get_rect()
 
     def update(self, scroll_speed, delta_time):
-        self.rect.x += scroll_speed * delta_time
+        self.rect.x += scroll_speed * POWERUP_VELOCITY.x * delta_time
 
         if self.rect.right < 0:
             self.mgr.recycle(self)
@@ -103,7 +105,7 @@ class PowerupManager(object):
         self.last_position[1] = powerup.rect.y
 
     def update(self, speed, delta_time):
-        self.last_position[0] += speed * delta_time
+        self.last_position[0] += speed * POWERUP_VELOCITY.x * delta_time
         self.group.update(speed, delta_time)
 
     def on_draw(self, surface):

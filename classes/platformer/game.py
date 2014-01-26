@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 from random import choice
 from constants import *
 from player import *
@@ -9,7 +10,7 @@ from blocks import BlockManager
 from parallax import *
 from sound import *
 
-
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 """Base Game
 
@@ -31,6 +32,11 @@ class Game(object):
     branch_scores =[0,0]
     total_score = 0
     evolv_threshold = 10
+
+    world_speed = 1.0  # 1x
+    max_speed = 2.0
+    speed_increase = 0.002
+    last_speed_increase = 0  # last time the speed was increased
 
     def should_transition(self):
         if self.branch_scores[0] >= self.evolv_threshold:
@@ -89,6 +95,11 @@ class Game(object):
             ms_since_last_tick = clock.tick(fps)
             delta_time = 1.0 / float(ms_since_last_tick)
 
+            if pygame.time.get_ticks() - self.last_speed_increase > 5000 \
+                and self.world_speed < self.max_speed:
+
+                self.world_speed += self.speed_increase
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
@@ -119,8 +130,8 @@ class Game(object):
                 bg.scroll(speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
-                block_mgr.update(-80.0, delta_time)
-                powerup_mgr.update(-80.0, delta_time)
+                block_mgr.update(self.world_speed, delta_time)
+                powerup_mgr.update(self.world_speed, delta_time)
 
             powerup = pygame.sprite.spritecollideany(player, powerup_mgr.group)
             if powerup:
