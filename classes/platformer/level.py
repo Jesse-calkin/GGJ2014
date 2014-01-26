@@ -98,7 +98,7 @@ class Level(object):
             cls._dinosaur_level.has_blocks = True
             cls._dinosaur_level.move_sound_id = "dinosaur_move_sound_id"
             cls._dinosaur_level.background_filepath = 'resources/backgrounds/land_earlyearth.jpg'
-            cls._dinosaur_level.foreground_filepath = 'resources/backgrounds/cloudforeground.png'
+            cls._dinosaur_level.foreground_filepath = 'resources/backgrounds/mountains.png'
             cls._dinosaur_level.player_sprite_filepath='resources/sprites/Dinosaur.png'
             cls._dinosaur_level.player_textmap_filepath='resources/sprites/Dinosaur.json'
         return cls._dinosaur_level
