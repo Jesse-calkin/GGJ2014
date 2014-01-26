@@ -53,6 +53,8 @@ class Game(object):
 
     def update_player_for_current_level(self, player):
         player.level = self.level
+        if self.level.has_blocks:
+            player.on_ground = True
 
     def update_blocks_for_current_level(self):
         self.block_mgr = BlockManager() if self.level.has_blocks else None
@@ -203,11 +205,6 @@ class Game(object):
                     self.player.on_ground = True
                     print 'on ground'
                     self.player.impulse.y = 0
-            else:
-                # TODO(caleb): Remove this once player is properly initialized.
-                # Must set player to on ground when there are no blocks, otherwise
-                # we are stuck falling.
-                self.player.on_ground = True
 
             # Drawing operations
             Game.bg.draw(screen)
