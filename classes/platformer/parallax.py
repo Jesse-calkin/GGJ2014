@@ -54,8 +54,8 @@ class ParallaxSurface:
 
     def add_surface(self, surface, scroll_factor):
         surface = surface.convert()
-        if len(self.levels) > 0:
-            surface.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
+        # if len(self.levels) > 0:
+        #     surface.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
         self.levels.append(_subsurface(surface, scroll_factor))
 
     def draw(self, surface, arg1):

@@ -81,7 +81,6 @@ class Game(object):
         player = Player()
         player_group = pygame.sprite.Group()
         player_group.add(player)
-        bgcolor = WHITE
 
         enemy = Enemy()
         enemy_group = pygame.sprite.Group()
