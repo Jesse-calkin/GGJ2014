@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 from random import choice
 from constants import *
 from player import *
@@ -9,7 +10,7 @@ from blocks import BlockManager
 from parallax import *
 from sound import *
 
-
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 """Base Game
 
@@ -106,12 +107,12 @@ class Game(object):
                         if event.key == DOWN_KEY:
                             player.move_down()
                             self.update_scores(1)
-                        if event.key == RIGHT_KEY:
-                            player.move_right()
-                        if event.key == LEFT_KEY:
-                            player.move_left()
-                        if event.key == JUMP_KEY:
-                            player.jump()
+                        # if event.key == RIGHT_KEY:
+                        #     player.move_right()
+                        # if event.key == LEFT_KEY:
+                        #     player.move_left()
+                        # if event.key == JUMP_KEY and player.on_ground:
+                        #     player.jump()
 
             #If we aren't paused, do this stuff
             if not paused:
@@ -128,10 +129,13 @@ class Game(object):
                 powerup.collided(player)
                 self.update_scores(powerup.powerup_type)
 
-            if pygame.sprite.spritecollideany(player, block_mgr.obstacle_group):
+            block = pygame.sprite.spritecollideany(player, block_mgr.obstacle_group)
+            if block:
+                player.rect.bottom = block.rect.top
                 player.on_ground = True
                 print 'on ground'
                 player.impulse.y = 0
+
 
             # Drawing operations
             #screen.fill(bgcolor)

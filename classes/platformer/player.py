@@ -1,4 +1,5 @@
 import pygame
+import json
 from vector import V2
 from spritesheet_functions import *
 from sound import *
@@ -33,12 +34,16 @@ class Player(pygame.sprite.Sprite):
         # Call the parent class (Sprite) constructor - like calling super
         pygame.sprite.Sprite.__init__(self)
 
+        sprite_sheet = SpriteSheet("../../resources/sprites/SpriteTest.png")
 
-        sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
-        frame = sprite_sheet.getImage(105, 108, 62, 92)
-        self.frames.append(frame)
-        frame = sprite_sheet.getImage(171, 108, 84, 92)
-        self.frames.append(frame)
+        with open('../../resources/sprites/SpriteTest.json') as tex_map:
+            for i in json.load(tex_map)['frames']:
+                self.frames.append(sprite_sheet.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h']))
+
+        # frame = sprite_sheet.getImage(105, 108, 62, 92)
+        # self.frames.append(frame)
+        # frame = sprite_sheet.getImage(171, 108, 84, 92)
+        # self.frames.append(frame)
 
         # Fetch the rectangle object that has the dimensions of the image
         self.image = self.frames[0]
@@ -76,6 +81,9 @@ class Player(pygame.sprite.Sprite):
         leftVec = pygame.math.Vector2(-1,0)
         self.applyImpulse(leftVec)
 
+    def jump(self):
+        self.move_up()
+
     def set_organism(self,organism):
         self.organism = organism
 
@@ -88,10 +96,24 @@ class Player(pygame.sprite.Sprite):
     def update(self,dt):
         self.rect.x += self.impulse.x
         self.rect.y += self.impulse.y
+
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+            self.impulse.x = 0
+        if self.rect.x < 0:
+            self.rect.x = 0
+            self.impulse.x = 0
+        if self.rect.bottom > SCREEN_HEIGHT:
+            self.rect.bottom = SCREEN_HEIGHT
+            self.impulse.y = 0
+        if self.rect.y < 0:
+            self.rect.y = 0
+            self.impulse.y = 0
+
         self.timer += dt
 
-        if not self.on_ground:
-            self.apply_gravity()
+        # if not self.on_ground:
+        #     self.apply_gravity()
 
         if self.timer > .5:
             self.animate()
