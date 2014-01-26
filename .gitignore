@@ -1,2 +1,7 @@
+
 *.pyc
 *.pyo
+
+dist/
+bin/
+build/
