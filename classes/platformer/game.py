@@ -11,6 +11,7 @@ from parallax import *
 from sound import *
 from level import *
 from hazard import Hazard
+from music import *
 
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
@@ -119,6 +120,9 @@ class Game(object):
         powerup_mgr = PowerupManager()
 
         speed = 5
+
+        "music stuff"
+        Music.play()
 
         "sound stuff"
         Sound.start()
