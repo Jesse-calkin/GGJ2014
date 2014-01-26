@@ -46,10 +46,7 @@ class Game(object):
         enemy_group = pygame.sprite.Group()
         enemy_group.add(enemy)
 
-        powerup = Powerup()
-        powerup_group = pygame.sprite.Group()
-        powerup_group.add(powerup)
-
+        powerup_mgr = PowerupManager()
 
         block_mgr = BlockManager()
 
@@ -83,7 +80,7 @@ class Game(object):
                         running = False
                     if event.key == SPACE_KEY:
                         paused = not paused
-                    # Do not send these events if we are paused 
+                    # Do not send these events if we are paused
                     if not paused:
                         if event.key == UP_KEY:
                             player.move_up()
@@ -102,8 +99,8 @@ class Game(object):
                 bg.scroll(speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
-                powerup_group.update(delta_time)
                 block_mgr.update(-80.0, delta_time)
+                powerup_mgr.update(-80.0, delta_time)
 
             # Drawing operations
             #screen.fill(bgcolor)
@@ -111,7 +108,7 @@ class Game(object):
             player_group.draw(screen)
             block_mgr.on_draw(screen)
             enemy_group.draw(screen)
-            powerup_group.draw(screen)
+            powerup_mgr.on_draw(screen)
             pygame.display.flip()
 
             pygame.display.set_caption(str(clock.get_fps()))
