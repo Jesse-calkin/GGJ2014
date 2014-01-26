@@ -57,6 +57,8 @@ class Game(object):
     transition_duration = 1500  # ms
 
     def die(self):
+        self.world_speed = 1.0
+        Sound.play_sound_for_sound_id(self.level.die_sound_id)
         first_level = Level.first_level()
         self.transition_to_level(first_level)
 
@@ -68,6 +70,7 @@ class Game(object):
     def update_player_for_current_level(self, player):
         player.level = self.level
         player.update_sprite(self.level.player_sprite_filepath, self.level.player_textmap_filepath)
+        player.update_jumpulse()
         if self.level.has_blocks:
             player.on_ground = True
 
@@ -155,8 +158,7 @@ class Game(object):
 
         "sound stuff"
         Sound.start()
-        sounds = [sound_tuple_walk, sound_tuple_eat, sound_tuple_evolve]
-        Sound.load_sounds(sounds)
+        Sound.load_sounds(all_sounds_to_load)
 
         self.update_for_current_level()
 

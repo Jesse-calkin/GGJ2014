@@ -47,17 +47,20 @@ class Player(pygame.sprite.Sprite):
         if not self.is_jumping and self.level.gravity.y > 0:
             self.is_jumping = True
             self.applyImpulse(self.jumpulse)
-            print 'jump'
+            Sound.play_sound_for_sound_id(self.level.jump_sound_id)
+            print 'jumpulse'
 
     def move_up(self):
-        upVec = pygame.math.Vector2(0, -3)
-        self.applyImpulse(upVec)
-        Sound.play_sound_for_sound_id(sound_id_walk)
+        if not self.level.gravity.y == 1:
+            upVec = pygame.math.Vector2(0, -3)
+            self.applyImpulse(upVec)
+            Sound.play_sound_for_sound_id(self.level.move_sound_id)
 
     def move_down(self):
-        downVec = pygame.math.Vector2(0, 3)
-        self.applyImpulse(downVec)
-        Sound.play_sound_for_sound_id(sound_id_walk)
+        if not self.level.gravity.y == 1:
+            downVec = pygame.math.Vector2(0, 3)
+            self.applyImpulse(downVec)
+            Sound.play_sound_for_sound_id(self.level.move_sound_id)
 
     def move_right(self):
         rightVec = pygame.math.Vector2(1, 0)
@@ -122,6 +125,9 @@ class Player(pygame.sprite.Sprite):
         # Fetch the rectangle object that has the dimensions of the image
         self.rect.x = self.position.x
         self.rect.y = self.position.y
+
+    def update_jumpulse(self):
+        self.jumpulse.y = (self.level.gravity.y * 30) * -1
 
     def evolve(self):
         if pygame.time.get_ticks() - self.last_evolve_change > self.evolve_duration:
