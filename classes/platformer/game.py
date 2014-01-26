@@ -122,8 +122,8 @@ class Game(object):
         while running:
             # lock frames at 60 fps
             # TODO(caleb): separate draw and update logic based off time if needed.
-            fps = 60
-            ms_since_last_tick = clock.tick(fps)
+
+            ms_since_last_tick = clock.tick(FRAME_RATE)
             delta_time = 1.0 / float(ms_since_last_tick)
 
             if self.world_speed < self.max_speed:
