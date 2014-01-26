@@ -52,6 +52,7 @@ class BlockManager(object):
 
     def __init__(self):
         self.queue = Queue.Queue(self.MAX_QUEUE_SIZE)
+        self.obstacle_group.empty()
 
         for _ in range(self.MAX_QUEUE_SIZE):
             block = Block()
