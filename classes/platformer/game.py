@@ -55,7 +55,7 @@ class Game(object):
         if score_type==2:
             self.branch_scores[1]+=1
         self.total_score += 1
-    
+
     def toggle_fullscreen(self):
         self.paused = True
         if not self.is_fullscreen:
@@ -101,6 +101,9 @@ class Game(object):
         sounds = [sound_tuple_walk]
         Sound.load_sounds(sounds)
 
+        is_moving_up = False
+        is_moving_down = False
+
         """ hey look! A Game loop! """
         while running:
             # lock frames at 60 fps
@@ -116,19 +119,23 @@ class Game(object):
                 if event.type == QUIT:
                     running = False
 
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                     if event.key == ESC_KEY:
                         running = False
                     if event.key == SPACE_KEY:
                         paused = not paused
                     # Do not send these events if we are paused
                     if not paused:
-                        if event.key == UP_KEY:
-                            player.move_up()
-                            self.update_scores(2)
-                        if event.key == DOWN_KEY:
-                            player.move_down()
-                            self.update_scores(1)
+                        if event.type == pygame.KEYDOWN and event.key == UP_KEY:
+                            is_moving_up = True
+                        elif event.type == pygame.KEYUP and event.key == UP_KEY:
+                            is_moving_up = False
+
+                        if event.type == pygame.KEYDOWN and event.key == DOWN_KEY:
+                            is_moving_down = True
+                        elif event.type == pygame.KEYUP and event.key == DOWN_KEY:
+                            is_moving_down = False
+
                         if event.key == FULLSCREEN_KEY:
                             self.toggle_fullscreen()
                         # if event.key == RIGHT_KEY:
@@ -137,6 +144,12 @@ class Game(object):
                         #     player.move_left()
                         # if event.key == JUMP_KEY and player.on_ground:
                         #     player.jump()
+            if is_moving_up:
+                player.move_up()
+                self.update_scores(2)
+            elif is_moving_down:
+                player.move_down()
+                self.update_scores(1)
 
             #If we aren't paused, do this stuff
             if not paused:
