@@ -6,9 +6,13 @@ import Queue
 import random
 
 import constants
+from vector import V2
+
+BLOCK_VELOCITY = V2(-60, 0)
 
 
 class Block(Sprite):
+
     def __init__(self):
         Sprite.__init__(self)
 
@@ -17,7 +21,7 @@ class Block(Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, scroll_speed, delta_time):
-        self.rect.x += scroll_speed * delta_time
+        self.rect.x += scroll_speed * BLOCK_VELOCITY.x * delta_time
 
         if self.rect.right < 0:
             self.mgr.recycle_block()
@@ -79,7 +83,7 @@ class BlockManager(object):
         self.next_position[1] = constants.SCREEN_HEIGHT - y_gap
 
     def update(self, speed, delta_time):
-        self.next_position[0] += speed * delta_time
+        self.next_position[0] += speed * BLOCK_VELOCITY.x * delta_time
         self.obstacle_group.update(speed, delta_time)
 
     def on_draw(self, surface):
