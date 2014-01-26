@@ -52,6 +52,10 @@ class Game(object):
     block_mgr = None
     hazard = None
 
+    transitioning = False
+    transition_start_time = 0
+    transition_duration = 1500  # ms
+
     def update_background_images_for_current_level(self):
         Game.bg.remove()
         Game.bg.add(self.level.background_filepath, 5)
@@ -84,10 +88,27 @@ class Game(object):
 
         next_level = self.level.next_level()
         if next_level:
+            self.start_transition()
             self.level = next_level
             self.update_for_current_level()
         else:
             self.reached_the_end()
+
+    def start_transition(self):
+        self.transitioning = True
+        self.transition_start_time = pygame.time.get_ticks()
+        self.paused = True
+
+    def during_transition(self):
+        # call out to things needing to know it's transition time
+        print 'processing transiton'
+        self.player.evolve()
+
+    def finish_transition(self):
+        # call out to finalize transition
+        print 'finish_transition'
+        self.paused = False
+        self.player.finish_evolve()
 
     def update_for_current_level(self):
         self.update_background_images_for_current_level()
@@ -111,7 +132,7 @@ class Game(object):
         """ game stuff """
         clock = pygame.time.Clock()
         running = True
-        paused = False
+        self.paused = False
 
         """ sprite stuff """
         self.player = Player()
@@ -143,6 +164,14 @@ class Game(object):
             ms_since_last_tick = clock.tick(FRAME_RATE)
             delta_time = 1.0 / float(ms_since_last_tick)
 
+            if self.transitioning:
+                if pygame.time.get_ticks() - self.transition_start_time > self.transition_duration:
+                    self.transitioning = False
+                    self.finish_transition()
+                else:
+                    # print pygame.time.get_ticks()
+                    self.during_transition()
+
             if pygame.time.get_ticks() - self.last_speed_increase > 5000 \
                 and self.world_speed < self.max_speed:
 
@@ -156,9 +185,9 @@ class Game(object):
                     if event.key == ESC_KEY:
                         running = False
                     if event.type == pygame.KEYDOWN and  event.key == SPACE_KEY:
-                        paused = not paused
+                        self.paused = not self.paused
                     # Do not send these events if we are paused
-                    if not paused:
+                    if not self.paused:
                         if event.type == pygame.KEYDOWN and event.key == UP_KEY:
                             is_moving_up = True
                         elif event.type == pygame.KEYUP and event.key == UP_KEY:
@@ -183,7 +212,7 @@ class Game(object):
                 self.player.move_down()
 
             #If we aren't paused, do this stuff
-            if not paused:
+            if not self.paused:
                 # Update operaions
                 Game.bg.scroll(speed*self.world_speed)
                 self.player.update(delta_time)

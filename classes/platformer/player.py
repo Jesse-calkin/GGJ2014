@@ -26,6 +26,11 @@ class Player(pygame.sprite.Sprite):
     # holding our animation frames for now
     frames = []
 
+    previous_frames = None
+    last_evolve_change = 0
+    evolve_duration = 100  # ms
+    evolve_timer = 0
+
     # Constructor. Can also take color, width, height
     def __init__(self):
         # Call the parent class (Sprite) constructor - like calling super
@@ -107,9 +112,20 @@ class Player(pygame.sprite.Sprite):
 
     def update_sprite(self, filename1, filename2):
         sprite_sheet = SpriteSheet(filename1)
+        self.previous_frames = self.frames
         self.frames = sprite_sheet.get_frames_from_texmap(filename2)
         self.image = self.frames[0]
         self.rect = self.frames[0].get_rect()
         # Fetch the rectangle object that has the dimensions of the image
         self.rect.x = self.position.x
         self.rect.y = self.position.y
+
+    def evolve(self):
+        if pygame.time.get_ticks() - self.last_evolve_change > self.evolve_duration:
+            self.image = self.previous_frames[0] \
+                if self.image is self.frames[0] else self.frames[0]
+
+            self.last_evolve_change = pygame.time.get_ticks()
+
+    def finish_evolve(self):
+        self.image = self.frames[0]
