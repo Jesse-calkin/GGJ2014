@@ -9,8 +9,8 @@ class Level(object):
         self.target_score = 1
 
         # Images
-        self.near_background_image_name = "../../resources/backgrounds/testforeground.png"
-        self.far_background_image_name = "../../resources/backgrounds/primordial.jpg"
+        self.background_filepath = "../../resources/backgrounds/testforeground.png"
+        self.foreground_filepath = "../../resources/backgrounds/primordial.jpg"
 
         # Sounds
         self.move_sound_id = None
