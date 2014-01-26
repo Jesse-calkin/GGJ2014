@@ -4,12 +4,12 @@ import os
 from random import choice
 from constants import *
 from player import *
-from enemy import *
 from powerup import *
 from blocks import BlockManager
 from parallax import *
 from sound import *
 from level import *
+from hazard import Hazard
 
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
@@ -47,6 +47,7 @@ class Game(object):
     bg = ParallaxSurface(pygame.RLEACCEL)
 
     block_mgr = None
+    hazard = None
 
     def update_background_images_for_current_level(self):
         Game.bg.remove()
@@ -61,6 +62,10 @@ class Game(object):
 
     def update_blocks_for_current_level(self):
         self.block_mgr = BlockManager() if self.level.has_blocks else None
+
+    def update_hazard_for_current_level(self):
+        self.hazard = Hazard(self.level.hazard_start_location) \
+            if self.level.hazard_start_location else None
 
     def should_transition(self):
         if self.level_score >= self.level.target_score:
@@ -85,6 +90,7 @@ class Game(object):
         self.update_background_images_for_current_level()
         self.update_player_for_current_level(self.player)
         self.update_blocks_for_current_level()
+        self.update_hazard_for_current_level()
 
     def toggle_fullscreen(self):
         self.paused = True
@@ -108,10 +114,6 @@ class Game(object):
         self.player = Player()
         player_group = pygame.sprite.Group()
         player_group.add(self.player)
-
-        enemy = Enemy()
-        enemy_group = pygame.sprite.Group()
-        enemy_group.add(enemy)
 
         powerup_mgr = PowerupManager()
 
@@ -179,10 +181,13 @@ class Game(object):
                 # Update operaions
                 Game.bg.scroll(speed*self.world_speed)
                 self.player.update(delta_time)
-                enemy_group.update(delta_time)
+
                 if self.block_mgr:
                     self.block_mgr.update(self.world_speed, delta_time)
                 powerup_mgr.update(self.world_speed, delta_time)
+                if self.hazard:
+                    self.hazard.on_update(self.world_speed, delta_time)
+
 
             powerup = pygame.sprite.spritecollideany(self.player, powerup_mgr.group)
             if powerup:
@@ -206,12 +211,17 @@ class Game(object):
                     print 'on ground'
                     self.player.impulse.y = 0
 
+            if self.hazard and pygame.sprite.collide_rect(self.player, self.hazard):
+                print "Player hit hazard!"
+
             # Drawing operations
             Game.bg.draw(screen)
             player_group.draw(screen)
             if self.block_mgr:
                 self.block_mgr.on_draw(screen)
-            enemy_group.draw(screen)
+            if self.hazard:
+                self.hazard.on_draw(screen)
+
             powerup_mgr.on_draw(screen)
             pygame.display.flip()
             caption = 'FPS: %s | LEVEL SCORE: %s | TOTAL SCORE: %s | TRANSITION? %s' %(str(clock.get_fps()).split('.')[0], str(self.level_score), self.total_score, str(self.should_transition()))
