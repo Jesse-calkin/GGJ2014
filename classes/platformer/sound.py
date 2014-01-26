@@ -58,16 +58,6 @@ class Sound(object):
         sound = sound_tuple[cls.sound_tuple_index_sound]
         return sound
 
-    @classmethod
-    def test_sounds(cls):
-        sound_id = "test"
-        sound_filename = "resources/sounds/test.ogg"
-        sounds = [(sound_id, sound_filename)]
-        cls.load_sounds(sounds)
-        cls.play_sound_for_sound_id(sound_id)
-        for x in xrange(1,50000000):
-            pass
-
 if __name__ == '__main__':
     Sound.start()
     Sound.test_sounds()
