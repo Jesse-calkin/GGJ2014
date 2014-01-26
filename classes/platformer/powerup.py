@@ -21,6 +21,8 @@ class Powerup(pygame.sprite.Sprite):
     POWERUP_TYPE_DOWN = 'DOWN'
     POWERUP_TYPES = [POWERUP_TYPE_UP, POWERUP_TYPE_DOWN]
 
+    powerup_type = None
+
     timer = 0
     # holding our animation frames for now
     frames = []
@@ -94,7 +96,7 @@ class PowerupManager(object):
         powerup.rect.x = self.last_position[0] + x_gap
         powerup.rect.y = y
 
-        powerup.type = random.choice(Powerup.POWERUP_TYPES)
+        powerup.powerup_type = random.choice(Powerup.POWERUP_TYPES)
 
         self.last_position[0] = powerup.rect.x
         self.last_position[1] = powerup.rect.y
