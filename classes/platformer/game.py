@@ -60,8 +60,12 @@ class Game(object):
         next_level = self.level.next_level()
         if next_level:
             self.level = next_level
+            self.update_for_current_level()
         else:
             self.reached_the_end()
+
+    def update_for_current_level():
+        self.update_background_images()
 
     def toggle_fullscreen(self):
         self.paused = True
