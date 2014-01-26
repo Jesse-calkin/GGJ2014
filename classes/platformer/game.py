@@ -106,12 +106,10 @@ class Game(object):
         block_mgr = BlockManager()
 
         """background stuff"""
-<<<<<<< HEAD
         bg = ParallaxSurface(pygame.RLEACCEL)
         bg.add('../../resources/backgrounds/testbackground.png', 5)
         bg.add('../../resources/backgrounds/testforeground.png', 2)
-=======
->>>>>>> 6f515f30681cbd827f91ea39df9780a8c01e1938
+
         speed = 5
 
         "sound stuff"
