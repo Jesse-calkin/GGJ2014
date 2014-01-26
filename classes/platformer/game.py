@@ -56,6 +56,9 @@ class Game(object):
     transition_start_time = 0
     transition_duration = 1500  # ms
 
+    def die(self):
+        pass
+
     def update_background_images_for_current_level(self):
         Game.bg.remove()
         Game.bg.add(self.level.background_filepath, 5)
@@ -248,7 +251,7 @@ class Game(object):
                     self.player.impulse.y = 0
 
             if self.hazard and pygame.sprite.collide_rect(self.player, self.hazard):
-                print "Player hit hazard!"
+                self.die()
 
             # Drawing operations
             Game.bg.draw(screen)
