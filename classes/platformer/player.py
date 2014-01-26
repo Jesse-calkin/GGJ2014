@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
         _none, running, jumping, evolving, hurt, dying, dead, powerup = range(8)
 
     class organism:
-        _none, protozoa, fish, mudskipper, shark, whale, mouse, lizard, dinosaur, mastodon, monkey, person, spaceMonster, quark = range(14)
+        _none, protozoa, fish, dinosaur, dragon = range(5)
 
     timer = 0
     # holding our animation frames for now
@@ -41,13 +41,6 @@ class Player(pygame.sprite.Sprite):
                 image = sprite_sheet.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h'])
                 image = pygame.transform.scale(image,(image.get_width()/2,image.get_height()/2))
                 self.frames.append(image)
-
-        # for frame in self.frames:
-        #     pygame.transform.scale(frame,(frame.get_rect().w/2,frame.get_rect().h/2))
-        # frame = sprite_sheet.getImage(105, 108, 62, 92)
-        # self.frames.append(frame)
-        # frame = sprite_sheet.getImage(171, 108, 84, 92)
-        # self.frames.append(frame)
 
         # Fetch the rectangle object that has the dimensions of the image
         self.image = self.frames[0]
@@ -97,6 +90,20 @@ class Player(pygame.sprite.Sprite):
     def update(self,dt):
         self.rect.x += self.impulse.x
         self.rect.y += self.impulse.y
+
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+            self.impulse.x = 0
+        if self.rect.x < 0:
+            self.rect.x = 0
+            self.impulse.x = 0
+        if self.rect.bottom > SCREEN_HEIGHT:
+            self.rect.bottom = SCREEN_HEIGHT
+            self.impulse.y = 0
+        if self.rect.y < 0:
+            self.rect.y = 0
+            self.impulse.y = 0
+
         self.timer += dt
 
         if not self.on_ground:
