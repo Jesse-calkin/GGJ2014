@@ -8,10 +8,12 @@ class Level(object):
         self.gravity = pygame.math.Vector2(0, 0)
         self.target_score = 1
         self.has_blocks = False
+        self.hazard_start_location = None
 
         # Images
         self.background_filepath = "../../resources/backgrounds/testforeground.png"
         self.foreground_filepath = "../../resources/backgrounds/primordial.jpg"
+        self.hazard_filepath = None
 
         # Sounds
         self.move_sound_id = None
@@ -75,9 +77,11 @@ class Level(object):
             cls._fish_level = Level()
             cls._fish_level.gravity = pygame.math.Vector2(0, -1)
             cls._fish_level.target_score = 10
+            cls._fish_level.hazard_start_location = 'bottom'
             cls._fish_level.move_sound_id = "fish_move_sound_id"
             cls._fish_level.background_filepath = '../../resources/backgrounds/sea_modernearth.jpg'
             cls._fish_level.foreground_filepath = '../../resources/backgrounds/bubblesforeground.png'
+            cls._fish_level.hazard_filepath = '../../resources/sprites/pac.png'
         return cls._fish_level
 
     _dinosaur_level = None
@@ -101,7 +105,9 @@ class Level(object):
             cls._dragon_level.gravity = pygame.math.Vector2(0, 1)
             cls._dragon_level.target_score = 20
             cls._dragon_level.has_blocks = True
+            cls._dragon_level.hazard_start_location = 'top'
             cls._dragon_level.move_sound_id = "dragon_move_sound_id"
             cls._dragon_level.background_filepath = '../../resources/backgrounds/aerial.jpg'
             cls._dragon_level.foreground_filepath = '../../resources/backgrounds/cloudforeground.png'
+            cls._dragon_level.hazard_filepath = '../../resources/sprites/pac.png'
         return cls._dragon_level
