@@ -47,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         if not self.is_jumping and self.level.gravity.y > 0:
             self.is_jumping = True
             self.applyImpulse(self.jumpulse)
-            print 'jump'
+            print 'jumpulse'
 
     def move_up(self):
         if not self.level.gravity.y == 1:
@@ -126,7 +126,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = self.position.y
 
     def update_jumpulse(self):
-        self.jumpulse.y = (self.level.gravity.y * 100) * -1
+        self.jumpulse.y = (self.level.gravity.y * 30) * -1
 
     def evolve(self):
         if pygame.time.get_ticks() - self.last_evolve_change > self.evolve_duration:
