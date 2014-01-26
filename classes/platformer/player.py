@@ -126,7 +126,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = self.position.y
 
     def update_jumpulse(self):
-        self.jumpulse.y = (self.level.gravity.y * 10) * -1
+        self.jumpulse.y = (self.level.gravity.y * 100) * -1
 
     def evolve(self):
         if pygame.time.get_ticks() - self.last_evolve_change > self.evolve_duration:
