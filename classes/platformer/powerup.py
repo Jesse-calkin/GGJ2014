@@ -17,8 +17,9 @@ class Powerup(pygame.sprite.Sprite):
     """
     impulse = V2(-60,0)
 
-    class branch_type:
-        _none, up, down = range(3)
+    POWERUP_TYPE_UP = 'UP'
+    POWERUP_TYPE_DOWN = 'DOWN'
+    POWERUP_TYPES = [POWERUP_TYPE_UP, POWERUP_TYPE_DOWN]
 
     timer = 0
     # holding our animation frames for now
@@ -92,6 +93,8 @@ class PowerupManager(object):
 
         powerup.rect.x = self.last_position[0] + x_gap
         powerup.rect.y = y
+
+        powerup.type = random.choice(Powerup.POWERUP_TYPES)
 
         self.last_position[0] = powerup.rect.x
         self.last_position[1] = powerup.rect.y
