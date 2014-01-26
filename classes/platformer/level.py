@@ -7,10 +7,11 @@ class Level(object):
         # Gameplay
         self.gravity = pygame.math.Vector2(0, 0)
         self.target_score = 1
+        self.has_blocks = False
 
         # Images
-        self.near_background_image_name = "../../resources/backgrounds/testforeground.png"
-        self.far_background_image_name = "../../resources/backgrounds/primordial.jpg"
+        self.background_filepath = "../../resources/backgrounds/testforeground.png"
+        self.foreground_filepath = "../../resources/backgrounds/primordial.jpg"
 
         # Sounds
         self.move_sound_id = None
@@ -84,6 +85,7 @@ class Level(object):
             cls._dinosaur_level = Level()
             cls._dinosaur_level.gravity = pygame.math.Vector2(0, 3.5)
             cls._dinosaur_level.target_score = 15
+            cls._dinosaur_level.has_blocks = True
             cls._dinosaur_level.move_sound_id = "dinosaur_move_sound_id"
             cls._dinosaur_level.background_filepath = '../../resources/backgrounds/land_earlyearth.jpg'
             cls._dinosaur_level.foreground_filepath = '../../resources/backgrounds/testforeground.png'
@@ -96,6 +98,7 @@ class Level(object):
             cls._dragon_level = Level()
             cls._dragon_level.gravity = pygame.math.Vector2(0, 1)
             cls._dragon_level.target_score = 20
+            cls._dragon_level.has_blocks = True
             cls._dragon_level.move_sound_id = "dragon_move_sound_id"
             cls._dragon_level.background_filepath = '../../resources/backgrounds/aerial.jpg'
             cls._dragon_level.foreground_filepath = '../../resources/backgrounds/testforeground.png'

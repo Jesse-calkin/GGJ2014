@@ -16,8 +16,7 @@ class Player(pygame.sprite.Sprite):
     impulse = V2(0,0)
     position = V2(100,300)
     on_ground = False
-
-
+    level = None
 
     class state:
         _none, running, jumping, evolving, hurt, dying, dead, powerup = range(8)
@@ -36,12 +35,8 @@ class Player(pygame.sprite.Sprite):
 
         sprite_sheet = SpriteSheet("../../resources/sprites/SpriteTest.png")
 
-        with open('../../resources/sprites/SpriteTest.json') as tex_map:
-            for i in json.load(tex_map)['frames']:
-                image = sprite_sheet.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h'])
-                image = pygame.transform.scale(image,(image.get_width()/2,image.get_height()/2))
-                self.frames.append(image)
-
+        self.frames = sprite_sheet.get_frames_from_texmap("../../resources/sprites/SpriteTest.json")
+        
         # Fetch the rectangle object that has the dimensions of the image
         self.image = self.frames[0]
         self.rect = self.frames[0].get_rect()
@@ -52,19 +47,19 @@ class Player(pygame.sprite.Sprite):
     def applyImpulse(self,vec2):
         self.impulse.x += vec2.x
         self.impulse.y += vec2.y
-        Sound.play_sound_for_sound_id(sound_id_walk)
 
     def apply_gravity(self):
-        gravity = pygame.math.Vector2(0,3.5)
-        self.applyImpulse(gravity)
+        self.applyImpulse(self.level.gravity)
 
     def move_up(self):
         upVec = pygame.math.Vector2(0, -3)
         self.applyImpulse(upVec)
+        Sound.play_sound_for_sound_id(sound_id_walk)
 
     def move_down(self):
         downVec = pygame.math.Vector2(0, 3)
         self.applyImpulse(downVec)
+        Sound.play_sound_for_sound_id(sound_id_walk)
 
     def move_right(self):
         rightVec = pygame.math.Vector2(1,0)
