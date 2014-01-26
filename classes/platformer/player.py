@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
     on_ground = False
     level = None
     is_jumping = False
-    jumpulse = V2(0,-50)
+    jumpulse = V2(0,-150)
     jumptimer = 0
 
     timer = 0
@@ -30,9 +30,9 @@ class Player(pygame.sprite.Sprite):
         # Call the parent class (Sprite) constructor - like calling super
         pygame.sprite.Sprite.__init__(self)
 
-        sprite_sheet = SpriteSheet("../../resources/sprites/SpriteTest.png")
+        sprite_sheet = SpriteSheet("../../resources/sprites/Amoeba.png")
 
-        self.frames = sprite_sheet.get_frames_from_texmap("../../resources/sprites/SpriteTest.json")
+        self.frames = sprite_sheet.get_frames_from_texmap("../../resources/sprites/Amoeba.json")
         
         # Fetch the rectangle object that has the dimensions of the image
         self.image = self.frames[0]
@@ -76,10 +76,10 @@ class Player(pygame.sprite.Sprite):
         self.organism = organism
 
     def animate(self):
-        if self.image == self.frames[0]:
-            self.image = self.frames[1]
+        if self.image == self.frames[1]:
+            self.image = self.frames[2]
         else:
-            self.image = self.frames[0]
+            self.image = self.frames[1]
 
     def update(self,dt):
         self.timer += dt
