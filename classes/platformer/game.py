@@ -58,6 +58,7 @@ class Game(object):
 
     def die(self):
         self.world_speed = 1.0
+        Sound.play_sound_for_sound_id(self.level.die_sound_id)
         first_level = Level.first_level()
         self.transition_to_level(first_level)
 
@@ -157,8 +158,7 @@ class Game(object):
 
         "sound stuff"
         Sound.start()
-        sounds = [sound_tuple_walk, sound_tuple_eat, sound_tuple_evolve]
-        Sound.load_sounds(sounds)
+        Sound.load_sounds(all_sounds_to_load)
 
         self.update_for_current_level()
 
