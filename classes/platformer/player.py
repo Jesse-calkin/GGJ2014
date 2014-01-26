@@ -107,8 +107,8 @@ class Player(pygame.sprite.Sprite):
 
         self.timer += dt
 
-        if not self.on_ground:
-            self.apply_gravity()
+        # if not self.on_ground:
+        #     self.apply_gravity()
 
         if self.timer > .5:
             self.animate()
