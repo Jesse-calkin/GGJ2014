@@ -34,7 +34,7 @@ class Powerup(pygame.sprite.Sprite):
         # Call the parent class (Sprite) constructor - like calling super
         pygame.sprite.Sprite.__init__(self)
 
-        sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
+        sprite_sheet = SpriteSheet("resources/sprites/pac.png")
         frame = sprite_sheet.getImage(88, 218, 82, 83)
         self.frames.append(frame)
 

@@ -56,7 +56,7 @@ class Sound(object):
     @classmethod
     def test_sounds(cls):
         sound_id = "test"
-        sound_filename = "../../resources/sounds/test.ogg"
+        sound_filename = "resources/sounds/test.ogg"
         sounds = [(sound_id, sound_filename)]
         cls.load_sounds(sounds)
         cls.play_sound_for_sound_id(sound_id)

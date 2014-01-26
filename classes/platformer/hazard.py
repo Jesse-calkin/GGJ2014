@@ -24,7 +24,7 @@ class Hazard(pygame.sprite.Sprite):
         self.group.empty()
         self.group.add(self)
 
-        sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
+        sprite_sheet = SpriteSheet("resources/sprites/pac.png")
         frame = sprite_sheet.getImage(35, 25, 35, 18)
         self.frames.append(frame)
 
