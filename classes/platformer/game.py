@@ -31,7 +31,7 @@ JUMP_KEY = pygame.K_a
 FULLSCREEN_KEY = pygame.K_f
 
 class Game(object):
-    branch_scores =[0,0]
+    level_score = 0
     total_score = 0
     evolv_threshold = 10
     is_fullscreen = False
@@ -46,18 +46,22 @@ class Game(object):
         pass
 
     def should_transition(self):
-        if self.branch_scores[0] >= self.level.powerups_goal:
-            return True,1
-        elif self.branch_scores[1] >= self.level.powerups_goal:
-            return True,2
+        if self.level_score >= self.level.target_score:
+            return True
+        else:
+            return False
 
-    def update_scores(self, score_type):
-        # pass in a powerup.score_type
-        if score_type==1:
-            self.branch_scores[0]+=1
-        if score_type==2:
-            self.branch_scores[1]+=1
-        self.total_score += 1
+    def reached_the_end(self):
+        self.paused = True
+
+    def transition_to_next_level(self):
+        self.level_score = 0
+
+        next_level = self.level.next_level()
+        if next_level:
+            self.level = next_level
+        else:
+            self.reached_the_end()
 
     def toggle_fullscreen(self):
         self.paused = True
@@ -81,7 +85,6 @@ class Game(object):
         player = Player()
         player_group = pygame.sprite.Group()
         player_group.add(player)
-        bgcolor = WHITE
 
         enemy = Enemy()
         enemy_group = pygame.sprite.Group()
@@ -149,10 +152,8 @@ class Game(object):
                         #     player.jump()
             if is_moving_up:
                 player.move_up()
-                self.update_scores(2)
             elif is_moving_down:
                 player.move_down()
-                self.update_scores(1)
 
             #If we aren't paused, do this stuff
             if not paused:
@@ -167,7 +168,10 @@ class Game(object):
             if powerup:
                 print "collided with powerup: %s" % powerup.powerup_type
                 powerup.collided(player)
-                self.update_scores(powerup.powerup_type)
+                self.level_score = self.level_score + 1
+                self.total_score = self.total_score + 1
+                if self.should_transition():
+                    self.transition_to_next_level()
 
             block = pygame.sprite.spritecollideany(player, block_mgr.obstacle_group)
             if block:
@@ -185,7 +189,7 @@ class Game(object):
             enemy_group.draw(screen)
             powerup_mgr.on_draw(screen)
             pygame.display.flip()
-            caption = 'FPS: %s | SCORE: %s | TRANSITION? %s' %(str(clock.get_fps()).split('.')[0], str(self.total_score), str(self.should_transition()))
+            caption = 'FPS: %s | LEVEL SCORE: %s | TOTAL SCORE: %s | TRANSITION? %s' %(str(clock.get_fps()).split('.')[0], str(self.level_score), self.total_score, str(self.should_transition()))
             pygame.display.set_caption(caption)
 
 if __name__ == '__main__':
