@@ -36,12 +36,12 @@ class Player(pygame.sprite.Sprite):
 
         sprite_sheet = SpriteSheet("../../resources/sprites/SpriteTest.png")
 
-        with open('../../resources/sprites/SpriteTest.json') as tex_map:
-            for i in json.load(tex_map)['frames']:
-                image = sprite_sheet.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h'])
-                image = pygame.transform.scale(image,(image.get_width()/2,image.get_height()/2))
-                self.frames.append(image)
-
+        # with open('../../resources/sprites/SpriteTest.json') as tex_map:
+        #     for i in json.load(tex_map)['frames']:
+        #         image = sprite_sheet.getImage(i['frame']['x'], i['frame']['y'], i['frame']['w'], i['frame']['h'])
+        #         image = pygame.transform.scale(image,(image.get_width()/2,image.get_height()/2))
+        #         self.frames.append(image)
+        self.frames = sprite_sheet.get_frames_from_texmap("../../resources/sprites/SpriteTest.json")
         # Fetch the rectangle object that has the dimensions of the image
         self.image = self.frames[0]
         self.rect = self.frames[0].get_rect()
