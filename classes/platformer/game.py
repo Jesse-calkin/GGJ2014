@@ -48,6 +48,7 @@ class Game(object):
     block_mgr = None
 
     def update_background_images_for_current_level(self):
+        Game.bg.remove()
         Game.bg.add(self.level.background_filepath, 5)
         Game.bg.add(self.level.foreground_filepath, 2)
 
