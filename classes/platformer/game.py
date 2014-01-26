@@ -28,6 +28,16 @@ SPACE_KEY = pygame.K_SPACE
 JUMP_KEY = pygame.K_a
 
 class Game(object):
+    branch_scores =[0,0]
+    total_score = 0
+    def update_scores(score_type):
+        # pass in a powerup.score_type
+        if score_type==1:
+            self.branch_scores[0]+=1
+        if score_type==2:
+            self.branch_scores[1]+=1
+        self.total_score = self.total_score + sum(self.branch_scores)
+
     def main(self, screen):
         global delta_time
 
@@ -113,8 +123,8 @@ class Game(object):
             enemy_group.draw(screen)
             powerup_group.draw(screen)
             pygame.display.flip()
-
-            pygame.display.set_caption(str(clock.get_fps()))
+            caption = 'FPS: %s | SCORE: %s' %(str(clock.get_fps()).split('.')[0], str(self.total_score))
+            pygame.display.set_caption(caption)
 
 if __name__ == '__main__':
     pygame.init()
