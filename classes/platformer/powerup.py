@@ -6,7 +6,6 @@ from vector import V2
 import constants
 from player import Player
 
-import Queue
 import random
 
 POWERUP_VELOCITY = V2(-60, 0)
