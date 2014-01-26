@@ -5,7 +5,7 @@ Global constants
 #Global Game Constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-FRAME_RATE = 30
+FRAME_RATE = 60
 
 #Colors!
 BLACK = (000, 000, 000)
