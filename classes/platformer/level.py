@@ -44,6 +44,8 @@ class Level(object):
 
         if (next_level_index < number_of_levels):
             next_level = all_levels[next_level_index]
+        else:
+            next_level = Level.first_level()
 
         return next_level
 
