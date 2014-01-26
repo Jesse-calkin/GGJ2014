@@ -19,6 +19,7 @@ This is a basic game stub from which to expand upon.
 """
 
 
+
 #Input
 LEFT_KEY = pygame.K_LEFT
 RIGHT_KEY = pygame.K_RIGHT
@@ -38,7 +39,7 @@ class Game(object):
     evolv_threshold = 10
     is_fullscreen = False
     world_speed = 1.0  # 1x
-    max_speed = 10.0
+    max_speed = 5.0
     speed_increase = 0.002
     last_speed_increase = 0  # last time the speed was increased
 

@@ -21,7 +21,7 @@ TASTE_THE_RAINBOW = [RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET]
 
 # Sounds
 sound_id_walk = "walk"
-sound_tuple_walk = (sound_id_walk, "../../resources/sounds/swish.ogg")
+sound_tuple_walk = (sound_id_walk, "resources/sounds/swish.ogg")
 
 sound_id_eat = "eat"
-sound_tuple_eat = (sound_id_eat, "../../resources/sounds/cancel.ogg")
+sound_tuple_eat = (sound_id_eat, "resources/sounds/cancel.ogg")

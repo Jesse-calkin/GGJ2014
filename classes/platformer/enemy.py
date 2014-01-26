@@ -31,7 +31,7 @@ class Enemy(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
 
-        sprite_sheet = SpriteSheet("../../resources/sprites/pac.png")
+        sprite_sheet = SpriteSheet("resources/sprites/pac.png")
         frame = sprite_sheet.getImage(418, 108, 98, 99)
         self.frames.append(frame)
         frame = sprite_sheet.getImage(5, 109, 99, 99)
