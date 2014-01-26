@@ -57,6 +57,7 @@ class Game(object):
     transition_duration = 1500  # ms
 
     def die(self):
+        self.world_speed = 1.0
         first_level = Level.first_level()
         self.transition_to_level(first_level)
 
