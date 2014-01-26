@@ -76,7 +76,7 @@ class Game(object):
 
         """background stuff"""
         bg = ParallaxSurface(pygame.RLEACCEL)
-        bg.add('../../resources/backgrounds/testbackground.png', 5)
+        bg.add('../../resources/backgrounds/primordial.jpg', 5)
         bg.add('../../resources/backgrounds/testforeground.png', 2)
         speed = 5
         t_ref = 0
