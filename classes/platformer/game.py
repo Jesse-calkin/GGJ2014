@@ -125,7 +125,7 @@ class Game(object):
                 if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                     if event.key == ESC_KEY:
                         running = False
-                    if event.key == SPACE_KEY:
+                    if event.type == pygame.KEYDOWN and  event.key == SPACE_KEY:
                         paused = not paused
                     # Do not send these events if we are paused
                     if not paused:
