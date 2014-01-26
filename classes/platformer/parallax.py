@@ -42,24 +42,20 @@ class ParallaxSurface:
 
            image_path is the path to the image to be used
            scroll_factor is the slowdown factor for this parallax level.'''
-        try:
-            image = (pygame.image.load(image_path))
-        except:
-            message = "couldn't open image:" + image_path
-            raise SystemExit, message
+        image = (pygame.image.load(image_path))
         image = image.convert()
         if len(self.levels) > 0:
             image.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
         self.levels.append(_subsurface(image, scroll_factor))
 
-    def add_surface(self, surface, scroll_factor):
-        surface = surface.convert()
-        if len(self.levels) > 0:
-            surface.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
-        self.levels.append(_subsurface(surface, scroll_factor))
+    # def add_surface(self, surface, scroll_factor):
+    #     surface = surface.convert()
+    #     if len(self.levels) > 0:
+    #         surface.set_colorkey((0xff, 0x00, 0xea), self.colorkey_flags)
+    #     self.levels.append(_subsurface(surface, scroll_factor))
 
-    def remove_surface(self, surface):
-        pass
+    def remove(self):
+        self.levels = []
 
     def draw(self, surface):
         ''' This draws all parallax levels to the surface
