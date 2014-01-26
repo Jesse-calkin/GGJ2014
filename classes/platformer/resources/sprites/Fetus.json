@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "Big 1.png",
+	"frame": {"x":386,"y":2,"w":398,"h":406},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":398,"h":406},
+	"sourceSize": {"w":398,"h":408}
+},
+{
+	"filename": "Big 2.png",
+	"frame": {"x":2,"y":2,"w":382,"h":412},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":382,"h":412},
+	"sourceSize": {"w":382,"h":414}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "Fetus.png",
+	"format": "RGBA8888",
+	"size": {"w":786,"h":416},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:79b8a92254e24c6c1dcb95955cdfe5df:611045cbd7a432793872b3cbecb06455:7ca091d22acf724391ae1dbe329388e5$"
+}
+}

@@ -83,9 +83,9 @@ class Level(object):
             cls._fish_level.move_sound_id = "fish_move_sound_id"
             cls._fish_level.background_filepath = 'resources/backgrounds/sea_modernearth.jpg'
             cls._fish_level.foreground_filepath = 'resources/backgrounds/bubblesforeground.png'
-            cls._fish_level.player_sprite_filepath='resources/sprites/SpriteTest.png'
+            cls._fish_level.player_sprite_filepath='resources/sprites/Fish.png'
             cls._fish_level.hazard_filepath = 'resources/sprites/pac.png'
-            cls._fish_level.player_textmap_filepath='resources/sprites/SpriteTest.json'
+            cls._fish_level.player_textmap_filepath='resources/sprites/Fish.json'
         return cls._fish_level
 
     _dinosaur_level = None
@@ -99,8 +99,8 @@ class Level(object):
             cls._dinosaur_level.move_sound_id = "dinosaur_move_sound_id"
             cls._dinosaur_level.background_filepath = 'resources/backgrounds/land_earlyearth.jpg'
             cls._dinosaur_level.foreground_filepath = 'resources/backgrounds/cloudforeground.png'
-            cls._dinosaur_level.player_sprite_filepath='resources/sprites/SpriteTest.png'
-            cls._dinosaur_level.player_textmap_filepath='resources/sprites/SpriteTest.json'
+            cls._dinosaur_level.player_sprite_filepath='resources/sprites/Dinosaur.png'
+            cls._dinosaur_level.player_textmap_filepath='resources/sprites/Dinosaur.json'
         return cls._dinosaur_level
 
     _dragon_level = None
@@ -115,7 +115,7 @@ class Level(object):
             cls._dragon_level.move_sound_id = "dragon_move_sound_id"
             cls._dragon_level.background_filepath = 'resources/backgrounds/aerial.jpg'
             cls._dragon_level.foreground_filepath = 'resources/backgrounds/cloudforeground.png'
-            cls._dragon_level.player_sprite_filepath='resources/sprites/SpriteTest.png'
+            cls._dragon_level.player_sprite_filepath='resources/sprites/Proto.png'
             cls._dragon_level.hazard_filepath = 'resources/sprites/pac.png'
-            cls._dragon_level.player_textmap_filepath='resources/sprites/SpriteTest.json'
+            cls._dragon_level.player_textmap_filepath='resources/sprites/Proto.json'
         return cls._dragon_level
