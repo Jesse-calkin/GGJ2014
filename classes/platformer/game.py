@@ -95,8 +95,6 @@ class Game(object):
         bg.add('../../resources/backgrounds/primordial.jpg', 5)
         bg.add('../../resources/backgrounds/testforeground.png', 2)
         speed = 5
-        t_ref = 0
-        backgroundy = -600
 
         "sound stuff"
         Sound.start()
@@ -156,7 +154,7 @@ class Game(object):
             #If we aren't paused, do this stuff
             if not paused:
                 # Update operaions
-                bg.scroll(speed)
+                bg.scroll(speed*self.world_speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
                 block_mgr.update(self.world_speed, delta_time)
@@ -177,8 +175,7 @@ class Game(object):
 
 
             # Drawing operations
-            #screen.fill(bgcolor)
-            bg.draw(screen, backgroundy)
+            bg.draw(screen)
             player_group.draw(screen)
             block_mgr.on_draw(screen)
             enemy_group.draw(screen)
