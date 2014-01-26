@@ -44,7 +44,6 @@ class Player(pygame.sprite.Sprite):
     def applyImpulse(self,vec2):
         self.impulse.x += vec2.x
         self.impulse.y += vec2.y
-        Sound.play_sound_for_sound_id(sound_id_walk)
 
     def apply_gravity(self):
         self.applyImpulse(self.level.gravity)
@@ -59,10 +58,12 @@ class Player(pygame.sprite.Sprite):
     def move_up(self):
         upVec = pygame.math.Vector2(0, -3)
         self.applyImpulse(upVec)
+        Sound.play_sound_for_sound_id(sound_id_walk)
 
     def move_down(self):
         downVec = pygame.math.Vector2(0, 3)
         self.applyImpulse(downVec)
+        Sound.play_sound_for_sound_id(sound_id_walk)
 
     def move_right(self):
         rightVec = pygame.math.Vector2(1,0)
