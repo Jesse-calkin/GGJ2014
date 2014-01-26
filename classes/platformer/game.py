@@ -52,7 +52,7 @@ class Game(object):
         if score_type==2:
             self.branch_scores[1]+=1
         self.total_score += 1
-    
+
     def toggle_fullscreen(self):
         self.paused = True
         if not self.is_fullscreen:
@@ -75,7 +75,6 @@ class Game(object):
         player = Player()
         player_group = pygame.sprite.Group()
         player_group.add(player)
-        bgcolor = WHITE
 
         enemy = Enemy()
         enemy_group = pygame.sprite.Group()
