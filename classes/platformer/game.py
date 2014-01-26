@@ -34,8 +34,8 @@ class Game(object):
     evolv_threshold = 10
 
     world_speed = 1.0  # 1x
-    max_speed = 2.0
-    speed_increase = 0.002
+    max_speed = 4.0
+    speed_increase = 0.0015
     last_speed_increase = 0  # last time the speed was increased
 
     def should_transition(self):
@@ -95,9 +95,7 @@ class Game(object):
             ms_since_last_tick = clock.tick(fps)
             delta_time = 1.0 / float(ms_since_last_tick)
 
-            if pygame.time.get_ticks() - self.last_speed_increase > 5000 \
-                and self.world_speed < self.max_speed:
-
+            if self.world_speed < self.max_speed:
                 self.world_speed += self.speed_increase
 
             for event in pygame.event.get():
