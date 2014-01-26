@@ -112,7 +112,7 @@ class Game(object):
 
         "sound stuff"
         Sound.start()
-        sounds = [sound_tuple_walk]
+        sounds = [sound_tuple_walk, sound_tuple_eat]
         Sound.load_sounds(sounds)
 
         self.update_for_current_level()
@@ -177,6 +177,7 @@ class Game(object):
             powerup = pygame.sprite.spritecollideany(player, powerup_mgr.group)
             if powerup:
                 print "collided with powerup: %s" % powerup.powerup_type
+                Sound.play_sound_for_sound_id(sound_id_eat)
                 powerup.collided(player)
                 self.level_score = self.level_score + 1
                 self.total_score = self.total_score + 1
