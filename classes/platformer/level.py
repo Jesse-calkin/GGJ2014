@@ -44,6 +44,8 @@ class Level(object):
 
         if (next_level_index < number_of_levels):
             next_level = all_levels[next_level_index]
+        else:
+            next_level = Level.first_level()
 
         return next_level
 
@@ -103,11 +105,3 @@ class Level(object):
             cls._dragon_level.background_filepath = '../../resources/backgrounds/aerial.jpg'
             cls._dragon_level.foreground_filepath = '../../resources/backgrounds/testforeground.png'
         return cls._dragon_level
-
-if __name__ == '__main__':
-    level = Level.first_level()
-    while (True):
-        print(level)
-        level = level.next_level()
-        if (level == None):
-            break
