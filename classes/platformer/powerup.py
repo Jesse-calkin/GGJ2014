@@ -4,6 +4,7 @@ from spritesheet_functions import *
 from vector import V2
 
 import constants
+from player import Player
 
 import Queue
 import random
@@ -58,6 +59,10 @@ class Powerup(pygame.sprite.Sprite):
         # else:
         #     self.image = self.frames[0]
 
+    def collided(self, collided_with):
+        if isinstance(collided_with, Player):
+            #TODO animate this or play a noise
+            self.mgr.recycle()
 
 class PowerupManager(object):
 
