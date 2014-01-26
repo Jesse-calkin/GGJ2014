@@ -17,12 +17,9 @@ class Player(pygame.sprite.Sprite):
     position = V2(100,300)
     on_ground = False
     level = None
-
-    class state:
-        _none, running, jumping, evolving, hurt, dying, dead, powerup = range(8)
-
-    class organism:
-        _none, protozoa, fish, dinosaur, dragon = range(5)
+    is_jumping = False
+    jumpulse = (0,5)
+    jumptimer = 0
 
     timer = 0
     # holding our animation frames for now
@@ -50,6 +47,13 @@ class Player(pygame.sprite.Sprite):
 
     def apply_gravity(self):
         self.applyImpulse(self.level.gravity)
+
+    def jump(self,dt):
+        if not self.is_jumping:
+            self.is_jumping = True
+            self.applyImpulse(self.jumpulse)
+            self.jumptimer += dt
+
 
     def move_up(self):
         upVec = pygame.math.Vector2(0, -3)
@@ -79,6 +83,7 @@ class Player(pygame.sprite.Sprite):
             self.image = self.frames[0]
 
     def update(self,dt):
+        self.timer += dt
         self.rect.x += self.impulse.x * dt
         self.rect.y += self.impulse.y * dt
 
@@ -91,14 +96,15 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom > SCREEN_HEIGHT:
             self.rect.bottom = SCREEN_HEIGHT
             self.impulse.y = 0
+
         if self.rect.y < 0:
             self.rect.y = 0
             self.impulse.y = 0
 
-        self.timer += dt
-
-        if not self.on_ground:
+        if self.is_jumping and self.jumptimer > .3:
             self.apply_gravity()
+        
+        self.apply_gravity()
 
         if self.timer > .5:
             self.animate()
