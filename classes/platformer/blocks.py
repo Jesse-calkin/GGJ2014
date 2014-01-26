@@ -40,12 +40,12 @@ class BlockManager(object):
     MAX_GAP_Y = 15
 
     MIN_WIDTH = 150
-    MIN_HEIGHT = 30
+    MIN_HEIGHT = 60
 
     MAX_WIDTH = 300
     MAX_HEIGHT = 50
 
-    start_position = [0, constants.SCREEN_HEIGHT]
+    start_position = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     next_position = [0, 0]
 
     obstacle_group = Group()
