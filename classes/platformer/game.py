@@ -42,8 +42,11 @@ class Game(object):
 
     level = Level.first_level()
 
+    bg = ParallaxSurface(pygame.RLEACCEL)
+
     def update_background_images_for_current_level(self):
-        pass
+        Game.bg.add(self.level.background_filepath, 5)
+        Game.bg.add(self.level.foreground_filepath, 2)
 
     def update_player_for_current_level(self):
         pass
@@ -103,9 +106,6 @@ class Game(object):
         block_mgr = BlockManager()
 
         """background stuff"""
-        bg = ParallaxSurface(pygame.RLEACCEL)
-        bg.add('../../resources/backgrounds/primordial.jpg', 5)
-        bg.add('../../resources/backgrounds/testforeground.png', 2)
         speed = 5
 
         "sound stuff"
@@ -166,7 +166,7 @@ class Game(object):
             #If we aren't paused, do this stuff
             if not paused:
                 # Update operaions
-                bg.scroll(speed*self.world_speed)
+                Game.bg.scroll(speed*self.world_speed)
                 player.update(delta_time)
                 enemy_group.update(delta_time)
                 block_mgr.update(self.world_speed, delta_time)
@@ -191,7 +191,7 @@ class Game(object):
 
 
             # Drawing operations
-            bg.draw(screen)
+            Game.bg.draw(screen)
             player_group.draw(screen)
             block_mgr.on_draw(screen)
             enemy_group.draw(screen)
