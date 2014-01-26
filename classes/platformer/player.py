@@ -14,6 +14,8 @@ class Player(pygame.sprite.Sprite):
     """
     impulse = V2(0,0)
     position = V2(100,300)
+    on_ground = False
+
 
 
     class state:
@@ -87,8 +89,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.impulse.x
         self.rect.y += self.impulse.y
         self.timer += dt
-        
-        if self.rect.y <600:
+
+        if not self.on_ground:
             self.apply_gravity()
 
         if self.timer > .5:

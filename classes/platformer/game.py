@@ -122,6 +122,17 @@ class Game(object):
                 block_mgr.update(-80.0, delta_time)
                 powerup_mgr.update(-80.0, delta_time)
 
+            powerup = pygame.sprite.spritecollideany(player, powerup_mgr.group)
+            if powerup:
+                print "collided with powerup: %s" % powerup.powerup_type
+                powerup.collided(player)
+                self.update_scores(powerup.powerup_type)
+
+            if pygame.sprite.spritecollideany(player, block_mgr.obstacle_group):
+                player.on_ground = True
+                print 'on ground'
+                player.impulse.y = 0
+
             # Drawing operations
             #screen.fill(bgcolor)
             bg.draw(screen, backgroundy)
