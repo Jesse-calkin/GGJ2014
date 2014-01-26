@@ -67,7 +67,7 @@ class Level(object):
             cls._amoeba_level.target_score = 5
             cls._amoeba_level.move_sound_id = "amoeba_move_sound_id"
             cls._amoeba_level.background_filepath = '../../resources/backgrounds/primordial.jpg'
-            cls._amoeba_level.foreground_filepath = '../../resources/backgrounds/oozeforeground.png'
+            cls._amoeba_level.foreground_filepath = '../../resources/backgrounds/amoebaforeground.png'
             cls._amoeba_level.player_sprite_filepath = '../../resources/sprites/Amoeba.png'
             cls._amoeba_level.player_textmap_filepath = '../../resources/sprites/Amoeba.json'
         return cls._amoeba_level
