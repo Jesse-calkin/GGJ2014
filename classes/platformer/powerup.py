@@ -18,8 +18,8 @@ class Powerup(pygame.sprite.Sprite):
     """
     impulse = V2(-60,0)
 
-    POWERUP_TYPE_UP = 'UP'
-    POWERUP_TYPE_DOWN = 'DOWN'
+    POWERUP_TYPE_UP = 1
+    POWERUP_TYPE_DOWN = 2
     POWERUP_TYPES = [POWERUP_TYPE_UP, POWERUP_TYPE_DOWN]
 
     powerup_type = None
