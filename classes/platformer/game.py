@@ -165,8 +165,8 @@ class Game(object):
                         #     player.move_right()
                         # if event.key == LEFT_KEY:
                         #     player.move_left()
-                        #if event.key == JUMP_KEY:
-                         #   self.player.jump(delta_timea)
+                        if event.key == JUMP_KEY:
+                            self.player.jump()
             if is_moving_up:
                 self.player.move_up()
             elif is_moving_down:
@@ -199,6 +199,8 @@ class Game(object):
                 if block:
                     self.player.rect.bottom = block.rect.top
                     self.player.on_ground = True
+                    if self.player.is_jumping:
+                        self.player.is_jumping = False
                     print 'on ground'
                     self.player.impulse.y = 0
 
