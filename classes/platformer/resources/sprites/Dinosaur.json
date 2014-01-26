@@ -1,20 +1,28 @@
 {"frames": [
 
 {
-	"filename": "Dinosaur.png",
-	"frame": {"x":2,"y":2,"w":684,"h":990},
+	"filename": "D1.png",
+	"frame": {"x":688,"y":2,"w":684,"h":494},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":5,"w":684,"h":990},
-	"sourceSize": {"w":700,"h":1000}
+	"spriteSourceSize": {"x":8,"y":3,"w":684,"h":494},
+	"sourceSize": {"w":700,"h":500}
+},
+{
+	"filename": "D2.png",
+	"frame": {"x":2,"y":2,"w":684,"h":496},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":1,"w":684,"h":496},
+	"sourceSize": {"w":700,"h":500}
 }],
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "Dinosaur.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":1024},
+	"size": {"w":1374,"h":500},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a1fde9f5ed3c4b64da07c470e8f8718b:422145a0ed453e470f95f3a85bc00f21:b14317f671ca09b2876296d2f420bdd8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:61013e48c856a9f480bf97bc88acf185:fb97c066537ef2bdb8d43023a20342be:b14317f671ca09b2876296d2f420bdd8$"
 }
 }
