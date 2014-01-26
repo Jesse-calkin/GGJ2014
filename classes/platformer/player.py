@@ -104,7 +104,8 @@ class Player(pygame.sprite.Sprite):
         if self.is_jumping and self.jumptimer > .3:
             self.apply_gravity()
         
-        self.apply_gravity()
+        if not self.is_jumping:
+            self.apply_gravity()
 
         if self.timer > .5:
             self.animate()
