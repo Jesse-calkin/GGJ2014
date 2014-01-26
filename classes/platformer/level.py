@@ -6,7 +6,7 @@ class Level(object):
 
         # Gameplay
         self.gravity = pygame.math.Vector2(0, 0)
-        self.powerups_goal = 1
+        self.target_score = 1
 
         # Images
         self.near_background_image_name = "../../resources/backgrounds/testforeground.png"
@@ -59,7 +59,7 @@ class Level(object):
         if (cls._amoeba_level == None):
             cls._amoeba_level = Level()
             cls._amoeba_level.gravity = pygame.math.Vector2(0, 0)
-            cls._amoeba_level.powerups_goal = 5
+            cls._amoeba_level.target_score = 5
             cls._amoeba_level.move_sound_id = "amoeba_move_sound_id"
         return cls._amoeba_level
 
@@ -69,7 +69,7 @@ class Level(object):
         if (cls._fish_level == None):
             cls._fish_level = Level()
             cls._fish_level.gravity = pygame.math.Vector2(0, -1)
-            cls._fish_level.powerups_goal = 10
+            cls._fish_level.target_score = 10
             cls._fish_level.move_sound_id = "fish_move_sound_id"
         return cls._fish_level
 
@@ -79,7 +79,7 @@ class Level(object):
         if (cls._dinosaur_level == None):
             cls._dinosaur_level = Level()
             cls._dinosaur_level.gravity = pygame.math.Vector2(0, 3.5)
-            cls._dinosaur_level.powerups_goal = 15
+            cls._dinosaur_level.target_score = 15
             cls._dinosaur_level.move_sound_id = "dinosaur_move_sound_id"
         return cls._dinosaur_level
 
@@ -89,7 +89,7 @@ class Level(object):
         if (cls._dragon_level == None):
             cls._dragon_level = Level()
             cls._dragon_level.gravity = pygame.math.Vector2(0, 1)
-            cls._dragon_level.powerups_goal = 20
+            cls._dragon_level.target_score = 20
             cls._dragon_level.move_sound_id = "dragon_move_sound_id"
         return cls._dragon_level
 
